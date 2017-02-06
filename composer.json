@@ -1,0 +1,30 @@
+{
+    "name": "yongtiger/yii2-cropper-avatar",
+    "description": "",
+    "type": "yii2-extension",
+    "keywords": ["yii2","extension","avatar","webuploader","cropper","file","image","crop","upload"],
+    "license": "MIT",
+    "support": {
+        "issues": "https://github.com/yongtiger/yii2-cropper-avatar/issues",
+        "forum": "http://www.yiiframework.com/forum/",
+        "source": "https://github.com/yongtiger/yii2-cropper-avatar"
+    },
+    "authors": [
+        {
+            "name": "Yong Tiger",
+            "email": "tigeryang.brainbook@outlook.com",
+            "homepage": "http://www.branbook.cc/yongtiger"
+        }
+    ],
+    "homepage" : "http://www.branbook.cc",
+    "require": {
+        "php": ">=5.5",
+        "yiisoft/yii2": "*",
+        "yiisoft/yii2-bootstrap": "*"
+    },
+    "autoload": {
+        "psr-4": {
+            "yongtiger\\avatar\\": "src"
+        }
+    }
+}
