@@ -15,6 +15,7 @@ namespace yongtiger\cropperavatar\actions;
 use Yii;
 use yii\base\Action;
 use yii\web\UploadedFile;
+use yii\web\Response;
 use yongtiger\cropperavatar\models\UploadForm;
 
 /**
@@ -36,16 +37,22 @@ class CropAction extends Action
      */
     public function run()
     {
-        $model = new UploadForm(['config' => $this->config]);
+        if (Yii::$app->request->isAjax) {
+            // Yii::$app->request->enableCsrfValidation = false;    ///?????close csrf
+            Yii::$app->response->format = Response::FORMAT_JSON;
 
-        if (Yii::$app->request->isPost) {
+            $model = new UploadForm(['config' => $this->config]);
 
-            $post = Yii::$app->request->post();
-            $model->avatarSrc = $post['UploadForm']['avatarSrc'];
-            $model->avatarData = $post['UploadForm']['avatarData'];
-            $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+            if (Yii::$app->request->isPost) {
 
-            return $model->upload();
+                $post = Yii::$app->request->post();
+                $model->avatarSrc = $post['UploadForm']['avatarSrc'];
+                $model->avatarData = $post['UploadForm']['avatarData'];
+                $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
+
+                return $model->upload();
+            }
         }
+        return $this->controller->goHome();
     }
 }

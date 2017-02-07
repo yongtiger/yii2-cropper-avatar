@@ -38,7 +38,7 @@ class UploadForm extends Model
     public $avatarSrc;
 
     /**
-     * @var JSONstring
+     * @var string JSON string
      */
     public $avatarData;
 
@@ -107,18 +107,17 @@ class UploadForm extends Model
     /**
      * Uploads a crop avatar.
      *
-     * @return JSONstring
+     * @return array
      */
     public function upload()
     {
         $crop = new CropAvatar($this->avatarSrc, $this->avatarData, $this->imageFile, $this->config);
 
-        $response = [
+        // return json_encode($response);
+        return [
           'state'  => 200,
           'message' => $crop-> getMsg(),
           'result' => $crop-> getResult()
         ];
-
-        return json_encode($response);
     }
 }

@@ -54,8 +54,9 @@ to the require section of your composer.json.
 ## See also
 
 
-## Todo
+## (TBD)
 
+* 在activeForm里使用 (https://github.com/yidashi/yii2-webuploader)
 * a-range-of-aspect-ratio (https://github.com/fengyuanchen/cropper/blob/master/examples/a-range-of-aspect-ratio.html)
 
 
