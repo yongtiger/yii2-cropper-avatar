@@ -1,4 +1,4 @@
-# Yii2-cropper-avatar [v0.1.0]
+# Yii2-cropper-avatar [v0.3.0]
 
 Initial commit.
 
@@ -56,6 +56,8 @@ to the require section of your composer.json.
 
 ## (TBD)
 
+* Yii::$app->request->enableCsrfValidation = false;    ///?????close csrf (https://github.com/yongtiger/yii2-cropper-avatar/blob/master/src/actions/CropAvatarAction.php#L42)
+* [['avatarData', 'imageFile'], 'required'],///?????'avatarSrc' (https://github.com/yongtiger/yii2-cropper-avatar/blob/master/src/models/UploadForm.php#L102)
 * 在activeForm里使用 (https://github.com/yidashi/yii2-webuploader)
 * a-range-of-aspect-ratio (https://github.com/fengyuanchen/cropper/blob/master/examples/a-range-of-aspect-ratio.html)
 
