@@ -58,8 +58,10 @@ to the require section of your composer.json.
 
 * Yii::$app->request->enableCsrfValidation = false;    ///?????close csrf (https://github.com/yongtiger/yii2-cropper-avatar/blob/master/src/actions/CropAvatarAction.php#L42)
 * [['avatarData', 'imageFile'], 'required'],///?????'avatarSrc' (https://github.com/yongtiger/yii2-cropper-avatar/blob/master/src/models/UploadForm.php#L102)
-* 在activeForm里使用 (https://github.com/yidashi/yii2-webuploader)
+* 在activeForm里使用 (https://github.com/yidashi/yii2-webuploader), InputWidget (https://github.com/yidashi/yii2-webuploader)
 * a-range-of-aspect-ratio (https://github.com/fengyuanchen/cropper/blob/master/examples/a-range-of-aspect-ratio.html)
+* 用yii\web\UploadedFile的saveas保存上传图片！节省很多代码！换为imagine可以处理图片旋转
+* 上传到qiniu等第三方图片云端
 
 
 ## [Development roadmap](docs/development-roadmap.md)
