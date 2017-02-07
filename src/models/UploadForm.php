@@ -113,6 +113,7 @@ class UploadForm extends Model
     {
         $crop = new CropAvatar($this->avatarSrc, $this->avatarData, $this->imageFile, $this->config);
 
+        ///[Yii2 cropper avatar:FORMAT_JSON]
         // return json_encode($response);
         return [
           'state'  => 200,

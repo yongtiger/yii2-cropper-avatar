@@ -42,7 +42,7 @@ use yongtiger\cropperavatar\AvatarWidget;
 
                 <!--///[Yii2 cropper avatar]-->
                 <!--///@see http://www.yiiframework.com/doc-2.0/guide-input-file-upload.html#rendering-file-input-->
-                <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'class'=>'avatar-form'],'action'=>['crop']]) ?>
+                <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'class'=>'avatar-form'],'action'=>['crop-avatar']]) ?>
                 <!--///[http://www.brainbook.cc]-->
 
                 <div class="modal-header">

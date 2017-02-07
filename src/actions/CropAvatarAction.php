@@ -19,11 +19,11 @@ use yii\web\Response;
 use yongtiger\cropperavatar\models\UploadForm;
 
 /**
- * Class CropAction
+ * Class CropAvatarAction
  *
  * @package yongtiger\cropperavatar\actions
  */
-class CropAction extends Action
+class CropAvatarAction extends Action
 {
     /**
      * @var array
@@ -37,6 +37,7 @@ class CropAction extends Action
      */
     public function run()
     {
+        ///[Yii2 cropper avatar:FORMAT_JSON]
         if (Yii::$app->request->isAjax) {
             // Yii::$app->request->enableCsrfValidation = false;    ///?????close csrf
             Yii::$app->response->format = Response::FORMAT_JSON;
