@@ -56,6 +56,8 @@ to the require section of your composer.json.
 
 ## Todo
 
+* a-range-of-aspect-ratio (https://github.com/fengyuanchen/cropper/blob/master/examples/a-range-of-aspect-ratio.html)
+
 
 ## [Development roadmap](docs/development-roadmap.md)
 
