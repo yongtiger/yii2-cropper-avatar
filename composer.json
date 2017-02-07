@@ -24,7 +24,7 @@
     },
     "autoload": {
         "psr-4": {
-            "yongtiger\\avatar\\": "src"
+            "yongtiger\\cropperavatar\\": "src"
         }
     }
 }
