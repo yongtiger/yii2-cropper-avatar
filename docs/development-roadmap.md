@@ -1,11 +1,16 @@
 # Development roadmap
 
-## Version 0.3.0 (fix:CropAvatarAction)
+## Yii2 cropper avatar v0.4.0:successCallback
 
 Features of this version:
 
 
-## Version 0.2.0 (FORMAT_JSON)
+## Yii2 cropper avatar v0.3.0:CropAvatarAction
+
+Features of this version:
+
+
+## Yii2 cropper avatar v0.2.0:FORMAT_JSON
 
 Features of this version:
 

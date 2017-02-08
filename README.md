@@ -1,6 +1,5 @@
-# Yii2-cropper-avatar [v0.3.0]
+# Yii2 cropper avatar v0.4.0:successCallback
 
-Initial commit.
 
 [![Latest Stable Version](https://poser.pugx.org/yongtiger/yii2-cropper-avatar/v/stable)](https://packagist.org/packages/yongtiger/yii2-cropper-avatar)
 [![Total Downloads](https://poser.pugx.org/yongtiger/yii2-cropper-avatar/downloads)](https://packagist.org/packages/yongtiger/yii2-cropper-avatar) 
@@ -54,7 +53,7 @@ to the require section of your composer.json.
 ## See also
 
 
-## (TBD)
+## TBD
 
 * Yii::$app->request->enableCsrfValidation = false;    ///?????close csrf (https://github.com/yongtiger/yii2-cropper-avatar/blob/master/src/actions/CropAvatarAction.php#L42)
 * [['avatarData', 'imageFile'], 'required'],///?????'avatarSrc' (https://github.com/yongtiger/yii2-cropper-avatar/blob/master/src/models/UploadForm.php#L102)

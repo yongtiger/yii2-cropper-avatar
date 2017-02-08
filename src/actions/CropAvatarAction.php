@@ -16,6 +16,7 @@ use Yii;
 use yii\base\Action;
 use yii\web\UploadedFile;
 use yii\web\Response;
+use yii\base\InvalidConfigException;
 use yongtiger\cropperavatar\models\UploadForm;
 
 /**
@@ -29,6 +30,22 @@ class CropAvatarAction extends Action
      * @var array
      */
     public $config = [];
+
+    /**
+     * @var callable PHP callback, which should be triggered in case of successful avatar upload.
+     * 
+     * For example:
+     *
+     * ```php
+     * public function onSuccessCallback($result)
+     * {
+     *     $avatarUrl = $result['result'];
+     *     // saving avatar url comes here
+     * }
+     * ```
+     *
+     */
+    public $successCallback;
 
     /**
      * @inheritdoc
@@ -51,7 +68,17 @@ class CropAvatarAction extends Action
                 $model->avatarData = $post['UploadForm']['avatarData'];
                 $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
 
-                return $model->upload();
+                $result = $model->upload();
+
+                ///[Yii2 cropper avatar:successCallback]
+                if ($this->successCallback) {
+                    if (!is_callable($this->successCallback)) {
+                        throw new InvalidConfigException('"' . get_class($this) . '::successCallback" should be a valid callback.');
+                    }
+                    $result = call_user_func($this->successCallback, $result);
+                }
+
+                return $result;
             }
         }
         return $this->controller->goHome();
