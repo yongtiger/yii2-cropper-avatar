@@ -1,5 +1,10 @@
 # Development roadmap
 
+## Yii2 cropper avatar v0.5.0:isModal
+
+Features of this version:
+
+
 ## Yii2 cropper avatar v0.4.0:successCallback
 
 Features of this version:

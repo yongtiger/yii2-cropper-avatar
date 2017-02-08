@@ -1,5 +1,6 @@
-# Yii2 cropper avatar v0.4.0:successCallback
+# Yii2 cropper avatar v0.5.0:isModal
 
+Yii2 cropper avatar 说仿造copper的demo中的avatar，未未经过优化！优化版本请参考。。。
 
 [![Latest Stable Version](https://poser.pugx.org/yongtiger/yii2-cropper-avatar/v/stable)](https://packagist.org/packages/yongtiger/yii2-cropper-avatar)
 [![Total Downloads](https://poser.pugx.org/yongtiger/yii2-cropper-avatar/downloads)](https://packagist.org/packages/yongtiger/yii2-cropper-avatar) 
