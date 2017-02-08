@@ -15,7 +15,11 @@
 
   var console = window.console || { log: function () {} };
 
+  var isModal = true; ///[isModal]
+
   function CropAvatar($element) {
+    isModal = $element.hasClass('is-modal'); ///[isModal]
+
     this.$container = $element;
 
     this.$avatarView = this.$container.find('.avatar-view');
@@ -54,8 +58,9 @@
       }
 
       this.initTooltip();
-      this.initModal();
+      isModal && this.initModal();  ///[isModal]
       this.addListener();
+      this.initPreview();
     },
 
     addListener: function () {
@@ -126,7 +131,7 @@
     },
 
     click: function () {
-      this.$avatarModal.modal('show');
+      isModal &&  this.$avatarModal.modal('show');  ///[isModal]
       this.initPreview();
     },
 
@@ -216,7 +221,7 @@
         this.active = true;
       }
 
-      this.$avatarModal.one('hidden.bs.modal', function () {
+      isModal && this.$avatarModal.one('hidden.bs.modal', function () { ///[isModal]
         _this.$avatarPreview.empty();
         _this.stopCropper();
       });
@@ -305,7 +310,7 @@
       this.$avatarForm.get(0).reset();
       this.$avatar.attr('src', this.url);
       this.stopCropper();
-      this.$avatarModal.modal('hide');
+      isModal && this.$avatarModal.modal('hide'); ///[isModal]
     },
 
     alert: function (msg) {

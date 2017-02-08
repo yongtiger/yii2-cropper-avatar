@@ -22,33 +22,38 @@ use yii\bootstrap\Html;
 use yongtiger\cropperavatar\AvatarWidget;
 
 ?>
-<div class="container" id="crop-avatar">
+<div class="container <?= $this->context->isModal ? 'is-modal' : '' ?>" id="crop-avatar"><!--///[isModal]-->
 
     <!-- Current avatar -->
     <div class="avatar-view" title="<?= AvatarWidget::t('avatar', 'Change the avatar') ?>">
 
         <!--///[Yii2 cropper avatar]-->
-        <!-- <img src="<?///= Yii::$app->assetManager->bundles['yongtiger\cropperavatar\AvatarAsset']->baseUrl . '/images/picture.jpg' ?>" alt="Avatar"> -->
-        <!-- <img src="<?///= $this->assetBundles['yongtiger\cropperavatar\AvatarAsset']->baseUrl . '/images/picture.jpg' ?>" alt="Avatar"> -->
         <img src="<?= $this->context->noImageUrl ?>" alt="<?= AvatarWidget::t('avatar', 'Avatar') ?>">
-        <!--///[http://www.brainbook.cc]-->
 
     </div>
 
+    <!--///[isModal]-->
+    <?php if ($this->context->isModal): ?>
     <!-- Cropping modal -->
     <div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
+    <?php else: ?>
+            <div id="avatar-modal">
+    <?php endif; ?>
 
                 <!--///[Yii2 cropper avatar]-->
                 <!--///@see http://www.yiiframework.com/doc-2.0/guide-input-file-upload.html#rendering-file-input-->
                 <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'class'=>'avatar-form'],'action'=>['crop-avatar']]) ?>
-                <!--///[http://www.brainbook.cc]-->
 
+                <!--///[isModal]-->
+                <?php if ($this->context->isModal): ?>
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
                     <h4 class="modal-title" id="avatar-modal-label"><?= AvatarWidget::t('avatar', 'Change Avatar') ?></h4>
                 </div>
+                <?php endif; ?>
+
                 <div class="modal-body">
                     <div class="avatar-body">
 
@@ -119,8 +124,11 @@ use yongtiger\cropperavatar\AvatarWidget;
                 </div>
                 <?php ActiveForm::end() ?>
             </div>
+    <!--///[isModal]-->
+    <?php if ($this->context->isModal): ?>
         </div>
     </div><!-- /.modal -->
+    <?php endif; ?>
 
     <!-- Loading state -->
     <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
