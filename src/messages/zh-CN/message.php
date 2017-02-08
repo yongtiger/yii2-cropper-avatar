@@ -21,12 +21,6 @@
 return [
 
 	/**
-	 * Models
-	 */
-	///\vendor\yongtiger\yii2-cropper-avatar\src\models\UploadForm.php
-	'"findIdentityByAccessToken" is not implemented.' => '"findIdentityByAccessToken"没有实现。',
-
-	/**
 	 * Views
 	 */
 	///\vendor\yongtiger\yii2-cropper-avatar\src\views\index.php

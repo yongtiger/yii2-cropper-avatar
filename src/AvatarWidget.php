@@ -96,9 +96,9 @@ class AvatarWidget extends Widget
             Yii::$app->i18n->translations['extensions/yongtiger/yii2-cropper-avatar/*'] = [
                 'class' => 'yii\i18n\PhpMessageSource',
                 'sourceLanguage' => 'en-US',
-                'basePath' => '@vendor/yongtiger/yii2-cropper-avatar/src/messages',    ///default base path is '@vendor/yongtiger/yii2-cropper-avatar/src/messages'
+                'basePath' => '@vendor/yongtiger/yii2-cropper-avatar/src/messages',    ///default base path
                 'fileMap' => [
-                    'extensions/yongtiger/yii2-cropper-avatar/avatar' => 'avatar.php',  ///category in Module::t() is avatar
+                    'extensions/yongtiger/yii2-cropper-avatar/message' => 'message.php',  ///category in Module::t() is message
                 ],
             ];
         }
