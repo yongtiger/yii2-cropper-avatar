@@ -37,9 +37,8 @@ class CropAvatarAction extends Action
      * For example:
      *
      * ```php
-     * public function onSuccessCallback($result)
+     * public function onSuccessCallback($avatarUrl)
      * {
-     *     $avatarUrl = $result['result'];
      *     // saving avatar url comes here
      * }
      * ```
@@ -75,7 +74,7 @@ class CropAvatarAction extends Action
                     if (!is_callable($this->successCallback)) {
                         throw new InvalidConfigException('"' . get_class($this) . '::successCallback" should be a valid callback.');
                     }
-                    $result = call_user_func($this->successCallback, $result);
+                    call_user_func($this->successCallback, $result['result']);
                 }
 
                 return $result;
