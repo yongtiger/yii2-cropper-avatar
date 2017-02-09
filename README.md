@@ -1,4 +1,4 @@
-# Yii2 cropper avatar v0.6.0:fix:conflict data-method
+# Yii2 cropper avatar v0.7.0:InputWidget
 
 Yii2 cropper avatar 说仿造copper的demo中的avatar，未未经过优化！优化版本请参考。。。
 

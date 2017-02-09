@@ -28,12 +28,12 @@
     this.$loading = this.$container.find('.loading');
 
     this.$avatarForm = this.$avatarModal.find('.avatar-form');
-    this.$avatarUpload = this.$avatarForm.find('.avatar-upload');
-    this.$avatarSrc = this.$avatarForm.find('.avatar-src');
-    this.$avatarData = this.$avatarForm.find('.avatar-data');
-    this.$avatarInput = this.$avatarForm.find('.avatar-input');
-    this.$avatarSave = this.$avatarForm.find('.avatar-save');
-    this.$avatarBtns = this.$avatarForm.find('.avatar-btns');
+    this.$avatarUpload = this.$avatarModal.find('.avatar-upload');
+    this.$avatarSrc = this.$avatarUpload.find('.avatar-src');
+    this.$avatarData = this.$avatarUpload.find('.avatar-data');
+    this.$avatarInput = this.$avatarUpload.find('.avatar-input');
+    this.$avatarSave = this.$avatarModal.find('.avatar-save');
+    this.$avatarBtns = this.$avatarModal.find('.avatar-btns');
 
     this.$avatarWrapper = this.$avatarModal.find('.avatar-wrapper');
     this.$avatarPreview = this.$avatarModal.find('.avatar-preview');
@@ -180,7 +180,7 @@
       if (this.active) {
         data = $(e.target).data();
 
-        ///[fix:conflict data-method]@see https://github.com/yiisoft/yii2/issues/11060
+        ///[fix:conflict data-method]
         if (data.trixMethod) {
           this.$img.cropper(data.trixMethod, data.option);
         }

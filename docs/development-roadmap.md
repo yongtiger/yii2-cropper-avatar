@@ -1,5 +1,10 @@
 # Development roadmap
 
+## Yii2 cropper avatar v0.7.0:InputWidget
+
+Features of this version:
+
+
 ## Yii2 cropper avatar v0.6.0:fix:conflict data-method
 
 Features of this version:

@@ -13,7 +13,8 @@
 namespace yongtiger\cropperavatar;
 
 use Yii;
-use yii\bootstrap\Widget;
+use yii\bootstrap\InputWidget;
+use yii\helpers\Html;
 use yongtiger\cropperavatar\AvatarAsset;
 use yongtiger\cropperavatar\models\UploadForm;
 
@@ -22,12 +23,18 @@ use yongtiger\cropperavatar\models\UploadForm;
  *
  * @package yongtiger\cropperavatar
  */
-class AvatarWidget extends Widget
+class AvatarWidget extends InputWidget
 {
+    ///[InputWidget]
+    /**
+     * @inheritdoc
+     */
+    public $name;
+
     /**
      * @var string
      */
-	public $noImageUrl;
+    public $noImageUrl;
 
     ///[isModal]
     /**
@@ -38,27 +45,40 @@ class AvatarWidget extends Widget
     /**
      * @var bool
      */
-	public $enableRotateButtons = true;
+    public $enableRotateButtons = true;
     /**
      * @var bool
      */
-	public $enablePreviewLargelImage = true;
+    public $enablePreviewLargelImage = true;
 
     /**
      * @var bool
      */
-	public $enablePreviewMiddlelImage = true;
+    public $enablePreviewMiddlelImage = true;
 
     /**
      * @var bool
      */
-	public $enablePreviewSmalllImage = true;
+    public $enablePreviewSmalllImage = true;
 
     /**
      * @inheritdoc
      */
     public function init()
     {
+
+        ///[InputWidget]
+        if (empty($this->id)) {
+            $this->id = $this->hasModel() ? Html::getInputId($this->model, $this->attribute) : $this->getId();
+        }
+        if (empty($this->name)) {
+            $this->name = $this->hasModel() ? Html::getInputName($this->model, $this->attribute) : $this->getId();
+        }
+        if (empty($this->value) && $this->hasModel()) {
+            $attributeName = $this->attribute;
+            $this->value = $this->model->$attributeName;
+        }
+
         parent::init();
 
         $this->registerTranslations();
@@ -72,7 +92,8 @@ class AvatarWidget extends Widget
      */
     public function run()
     {
-        return $this->render('index', ['model' => new UploadForm()]);
+        ///[InputWidget]
+        return $this->hasModel() ? $this->render('inputWidget', ['model' => $this->model]) : $this->render('index', ['model' => new UploadForm()]);
     }
 
     /**
