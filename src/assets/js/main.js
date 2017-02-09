@@ -180,9 +180,11 @@
       if (this.active) {
         data = $(e.target).data();
 
-        if (data.method) {
-          this.$img.cropper(data.method, data.option);
+        ///[fix:conflict data-method]@see https://github.com/yiisoft/yii2/issues/11060
+        if (data.trixMethod) {
+          this.$img.cropper(data.trixMethod, data.option);
         }
+        
       }
     },
 

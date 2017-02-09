@@ -60,15 +60,17 @@ use yongtiger\cropperavatar\AvatarWidget;
                         <!-- Upload image and data -->
                         <div class="avatar-upload">
 
-                        <!--///[Yii2 cropper avatar]-->
-                        <!-- <input type="hidden" class="avatar-src" name="avatar_src"> -->
-                        <?= $form->field($model, 'avatarSrc')->hiddenInput(['class'=>'avatar-src'])->label(false) ?>
-                        <!-- <input type="hidden" class="avatar-data" name="avatar_data"> -->
-                        <?= $form->field($model, 'avatarData')->hiddenInput(['class'=>'avatar-data'])->label(false) ?>
-                        <!-- <label for="avatarInput">Local upload</label> -->
-                        <!-- <input type="file" class="avatar-input" id="avatarInput" name="avatar_file"> -->
-                        <?= $form->field($model, 'imageFile')->fileInput(['class'=>'avatar-input', 'id'=>'avatarInput'])->label(AvatarWidget::t('message', 'Local upload')) ?>
-                        <!--///[http://www.brainbook.cc]-->
+                            <!--///[Yii2 cropper avatar]-->
+                            <!-- <input type="hidden" class="avatar-src" name="avatar_src"> -->
+                            <?= $form->field($model, 'avatarSrc')->hiddenInput(['class'=>'avatar-src'])->label(false) ?>
+                            <!-- <input type="hidden" class="avatar-data" name="avatar_data"> -->
+                            <?= $form->field($model, 'avatarData')->hiddenInput(['class'=>'avatar-data'])->label(false) ?>
+                            <!-- <label for="avatarInput">Local upload</label> -->
+                            <!-- <input type="file" class="avatar-input" id="avatarInput" name="avatar_file"> -->
+                            <?= $form->field($model, 'imageFile')->fileInput(['class'=>'avatar-input', 'id'=>'avatarInput'])->label(AvatarWidget::t('message', 'Local upload')) ?>
+                            <!--///[http://www.brainbook.cc]-->
+                            
+                        </div>
 
                     </div>
 
@@ -98,18 +100,19 @@ use yongtiger\cropperavatar\AvatarWidget;
                         <div class="col-md-9">
 
                             <!--///[Yii2 cropper avatar]-->
+                            <!--///[fix:conflict data-method]@see https://github.com/yiisoft/yii2/issues/11060-->
                             <?php if ($this->context->enableRotateButtons): ?>
                                 <div class="btn-group">
-                                    <button type="button" class="btn btn-primary" data-method="rotate" data-option="-90" title="<?= AvatarWidget::t('message', 'Rotate -90 degrees') ?>"><?= AvatarWidget::t('message', 'Rotate Left') ?></button>
-                                    <button type="button" class="btn btn-primary" data-method="rotate" data-option="-15">-15<?= AvatarWidget::t('message', 'deg') ?></button>
-                                    <button type="button" class="btn btn-primary" data-method="rotate" data-option="-30">-30<?= AvatarWidget::t('message', 'deg') ?></button>
-                                    <button type="button" class="btn btn-primary" data-method="rotate" data-option="-45">-45<?= AvatarWidget::t('message', 'deg') ?></button>
+                                    <button type="button" class="btn btn-primary" data-trix-method="rotate" data-option="-90" title="<?= AvatarWidget::t('message', 'Rotate -90 degrees') ?>"><?= AvatarWidget::t('message', 'Rotate Left') ?></button>
+                                    <button type="button" class="btn btn-primary" data-trix-method="rotate" data-option="-15">-15<?= AvatarWidget::t('message', 'deg') ?></button>
+                                    <button type="button" class="btn btn-primary" data-trix-method="rotate" data-option="-30">-30<?= AvatarWidget::t('message', 'deg') ?></button>
+                                    <button type="button" class="btn btn-primary" data-trix-method="rotate" data-option="-45">-45<?= AvatarWidget::t('message', 'deg') ?></button>
                                 </div>
                                 <div class="btn-group">
-                                        <button type="button" class="btn btn-primary" data-method="rotate" data-option="90" title="<?= AvatarWidget::t('message', 'Rotate 90 degrees') ?>"><?= AvatarWidget::t('message', 'Rotate Right') ?></button>
-                                        <button type="button" class="btn btn-primary" data-method="rotate" data-option="15">15<?= AvatarWidget::t('message', 'deg') ?></button>
-                                        <button type="button" class="btn btn-primary" data-method="rotate" data-option="30">30<?= AvatarWidget::t('message', 'deg') ?></button>
-                                        <button type="button" class="btn btn-primary" data-method="rotate" data-option="45">45<?= AvatarWidget::t('message', 'deg') ?></button>
+                                        <button type="button" class="btn btn-primary" data-trix-method="rotate" data-option="90" title="<?= AvatarWidget::t('message', 'Rotate 90 degrees') ?>"><?= AvatarWidget::t('message', 'Rotate Right') ?></button>
+                                        <button type="button" class="btn btn-primary" data-trix-method="rotate" data-option="15">15<?= AvatarWidget::t('message', 'deg') ?></button>
+                                        <button type="button" class="btn btn-primary" data-trix-method="rotate" data-option="30">30<?= AvatarWidget::t('message', 'deg') ?></button>
+                                        <button type="button" class="btn btn-primary" data-trix-method="rotate" data-option="45">45<?= AvatarWidget::t('message', 'deg') ?></button>
                                 </div>
                             <?php endif; ?>
                             <!--///[http://www.brainbook.cc]-->

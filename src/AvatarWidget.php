@@ -33,7 +33,7 @@ class AvatarWidget extends Widget
     /**
      * @var bool Whether show avatar cropper by modal mode
      */
-    public $isModal = false;
+    public $isModal = true;
 
     /**
      * @var bool
