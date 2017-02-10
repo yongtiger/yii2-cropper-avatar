@@ -46,7 +46,6 @@ class AvatarWidget extends InputWidget
      * @var bool
      */
     public $enableRotateButtons = true;
-    
     /**
      * @var bool
      */
@@ -94,7 +93,7 @@ class AvatarWidget extends InputWidget
     public function run()
     {
         ///[InputWidget]
-        return $this->hasModel() ? $this->render('inputWidget', ['model' => $this->model]) : $this->render('index', ['model' => new UploadForm()]);
+        return $this->render('index', ['model' => $this->hasModel() ? $this->model : new UploadForm(), 'isInputWidget' => $this->hasModel()]);
     }
 
     /**

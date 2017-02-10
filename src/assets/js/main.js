@@ -15,10 +15,12 @@
 
     var console = window.console || { log: function () {} };
 
-    var isModal = true; ///[isModal]
+    var isModal; ///[isModal]
+    var isInputWidget; ///[InputWidget]
 
     function CropAvatar($element) {
         isModal = $element.hasClass('is-modal'); ///[isModal]
+        isInputWidget = $element.hasClass('is-input-widget');   ///[InputWidget]
 
         this.$container = $element;
 
@@ -33,7 +35,7 @@
         this.$avatarData = this.$avatarUpload.find('.avatar-data');
         this.$avatarInput = this.$avatarUpload.find('.avatar-input');
         this.$avatarSave = this.$avatarModal.find('.avatar-save');
-        this.$avatarBtns = this.$avatarModal.find('.avatar-btns.btn-group');    ///[InputWidget]
+        this.$avatarBtns = this.$avatarModal.find('.avatar-btns .btn-group');    ///[fix:avatar-btns]
 
         this.$avatarWrapper = this.$avatarModal.find('.avatar-wrapper');
         this.$avatarPreview = this.$avatarModal.find('.avatar-preview');
@@ -52,7 +54,7 @@
 
         init: function () {
             this.support.datauri = this.support.fileList && this.support.blobURLs;
-
+            // this.support.formData = false;   ///test for [fix:main.js:this.support.formData = false]
             if (!this.support.formData) {
                 this.initIframe();
             }
@@ -66,9 +68,9 @@
         addListener: function () {
             this.$avatarView.on('click', $.proxy(this.click, this));
             this.$avatarInput.on('change', $.proxy(this.change, this));
-            this.$avatarForm.on('submit', $.proxy(this.submit, this));
+            !isInputWidget && this.$avatarForm.on('submit', $.proxy(this.submit, this));
             this.$avatarBtns.on('click', $.proxy(this.rotate, this));
-            this.$avatarSave.on('click', $.proxy(this.save, this));   ///[InputWidget]
+            isInputWidget && this.$avatarSave.on('click', $.proxy(this.submit, this));   ///[InputWidget]
         },
 
         initTooltip: function () {
@@ -112,9 +114,9 @@
 
                     if (data) {
                         try {
-                          data = $.parseJSON(data);
+                            data = $.parseJSON(data);
                         } catch (e) {
-                          console.log(e.message);
+                            console.log(e.message);
                         }
 
                         _this.submitDone(data);
@@ -132,6 +134,12 @@
         },
 
         click: function () {
+            ///??????????fix:裁剪完图片关闭裁剪窗口后，再次点击打开，选择文件后选中的图片不出现在裁剪窗口！
+            ///原因是avatar-input已经被修改为了ajaxFileUpload临时复制的avatar-input对象，需要再次绑定嫦娥事件
+            this.$avatarInput = this.$avatarUpload.find('.avatar-input');
+            this.$avatarInput.on('change', $.proxy(this.change, this));
+            ///[http://www.brainbook.cc]
+            
             isModal &&  this.$avatarModal.modal('show');  ///[isModal]
             this.initPreview();
         },
@@ -148,7 +156,7 @@
 
                     if (this.isImageFile(file)) {
                         if (this.url) {
-                          URL.revokeObjectURL(this.url); // Revoke the old one
+                            URL.revokeObjectURL(this.url); // Revoke the old one
                         }
 
                         this.url = URL.createObjectURL(file);
@@ -170,19 +178,11 @@
             }
 
             if (this.support.formData) {
-                this.ajaxUpload();
-                return false;
-            }
-        },
-
-        ///[InputWidget]
-        save: function () {
-            if (!this.$avatarSrc.val() && !this.$avatarInput.val()) {
-                return false;
-            }
-
-            if (this.support.formData) {
-                this.ajaxUpload();
+                if (isInputWidget) {
+                    this.ajaxFileUpload();  ///[InputWidget]
+                } else {
+                    this.ajaxUpload();
+                }
                 return false;
             }
         },
@@ -221,15 +221,15 @@
                     aspectRatio: 1,
                     preview: this.$avatarPreview.selector,
                     crop: function (e) {
-                        var json = [
-                            '{"x":' + e.x,
-                            '"y":' + e.y,
-                            '"height":' + e.height,
-                            '"width":' + e.width,
-                            '"rotate":' + e.rotate + '}'
-                        ].join();
+                    var json = [
+                        '{"x":' + e.x,
+                        '"y":' + e.y,
+                        '"height":' + e.height,
+                        '"width":' + e.width,
+                        '"rotate":' + e.rotate + '}'
+                    ].join();
 
-                        _this.$avatarData.val(json);
+                    _this.$avatarData.val(json);
                     }
                 });
 
@@ -251,9 +251,7 @@
         },
 
         ajaxUpload: function () {
-            ///[InputWidget]
-            var url = this.$avatarForm.attr('action');/////////////1_user/frontend/web/index.php?r=user%2Fprofile%2Fcrop-avatar
-            var url = 'http://localhost/1_user/frontend/web/index.php?r=user/profile/crop-avatar';
+            var url = this.$avatarForm.attr('action');
             var data = new FormData(this.$avatarForm[0]);
             var _this = this;
 
@@ -261,6 +259,11 @@
                 type: 'post',
                 data: data,
                 dataType: 'json',
+
+                ///NOTE: THIS MUST BE DONE FOR FILE UPLOADING 
+                ///send ajax request like you submit regular form with enctype="multipart/form-data"
+                ///@see http://stackoverflow.com/questions/21044798/how-to-use-formdata-for-ajax-file-upload
+                ///@see http://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax
                 processData: false,
                 contentType: false,
 
@@ -269,6 +272,40 @@
                 },
 
                 success: function (data) {
+                    _this.submitDone(data);
+                },
+
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    _this.submitFail(textStatus || errorThrown);
+                },
+
+                complete: function () {
+                    _this.submitEnd();
+                }
+            });
+        },
+
+        ///[ajaxfileupload]
+        ajaxFileUpload: function () {
+            var url = this.$avatarForm.attr('action');
+            var csrfToken = $('meta[name="csrf-token"]').attr("content");   ///[csrf]
+            var data = {'UploadForm[avatarSrc]':this.$avatarSrc.val(), 'UploadForm[avatarData]':this.$avatarData.val(),  '_csrf-frontend' : csrfToken};
+            var _this = this;
+
+            $.ajaxFileUpload({url: url, 
+                secureuri: false,
+                fileElementId:'avatarInput',
+                type: 'post',
+                data: data,
+                dataType: 'json',
+
+                global: false,  ///@see http://www.lai18.com/content/9621987.html
+
+                beforeSend: function () {
+                    _this.submitStart();
+                },
+
+                success: function (data, status) {
                     _this.submitDone(data);
                 },
 
@@ -324,7 +361,10 @@
         },
 
         cropDone: function () {
-            this.$avatarForm.get(0).reset();
+            // this.$avatarForm.get(0).reset();    ///?????改为Profile upddate form
+            // $("#w0").reset();
+
+            $("#profile-avatar").val(this.url);   ///???????profile-avatar变量化！！！/1_user/frontend/web/uploads/avatar/123/20170210020855.png只取文件名！
             this.$avatar.attr('src', this.url);
             this.stopCropper();
             isModal && this.$avatarModal.modal('hide'); ///[isModal]
@@ -345,5 +385,4 @@
     $(function () {
         return new CropAvatar($('#crop-avatar'));
     });
-
 });

@@ -55,7 +55,7 @@ class CropAvatarAction extends Action
     {
         ///[Yii2 cropper avatar:FORMAT_JSON]
         // if (Yii::$app->request->isAjax) {    ///[fix:main.js:this.support.formData = false]
-            // Yii::$app->request->enableCsrfValidation = false;    ///?????close csrf
+            // Yii::$app->request->enableCsrfValidation = false;    ///[csrf] no need to close csrf
             Yii::$app->response->format = Response::FORMAT_JSON;
 
             $model = new UploadForm(['config' => $this->config]);
@@ -70,7 +70,7 @@ class CropAvatarAction extends Action
                 $result = $model->upload();
 
                 ///[Yii2 cropper avatar:successCallback]
-                if ($this->successCallback) {
+                if ($this->successCallback) {   ///[ajaxfileupload]///?????????
                     if (!is_callable($this->successCallback)) {
                         throw new InvalidConfigException('"' . get_class($this) . '::successCallback" should be a valid callback.');
                     }

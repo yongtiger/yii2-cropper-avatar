@@ -30,6 +30,7 @@ class AvatarAsset extends AssetBundle
     ];
     
     public $js = [
+        'js/ajaxfileupload.js', ///[ajaxfileupload]///?????????
         'js/cropper.min.js',
         'js/main.js',
     ];

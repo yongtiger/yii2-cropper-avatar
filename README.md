@@ -1,4 +1,4 @@
-# Yii2 cropper avatar v0.7.1:fix:main.js:this.support.formData = false
+# Yii2 cropper avatar v0.7.2:InputWidget:ajaxfileupload
 
 Yii2 cropper avatar 说仿造copper的demo中的avatar，未未经过优化！优化版本请参考。。。
 
