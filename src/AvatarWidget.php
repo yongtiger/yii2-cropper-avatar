@@ -46,6 +46,7 @@ class AvatarWidget extends InputWidget
      * @var bool
      */
     public $enableRotateButtons = true;
+    
     /**
      * @var bool
      */

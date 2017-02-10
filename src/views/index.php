@@ -16,9 +16,7 @@
  * @var $model yongtiger\cropperavatar\models\UploadForm
  */
 
-use yii\helpers\Url;
 use yii\bootstrap\ActiveForm;
-use yii\bootstrap\Html;
 use yongtiger\cropperavatar\AvatarWidget;
 
 ?>
@@ -98,9 +96,8 @@ use yongtiger\cropperavatar\AvatarWidget;
 
                     <div class="row avatar-btns">
                         <div class="col-md-9">
-
+                        
                             <!--///[Yii2 cropper avatar]-->
-                            <!--///[fix:conflict data-method]@see https://github.com/yiisoft/yii2/issues/11060-->
                             <?php if ($this->context->enableRotateButtons): ?>
                                 <div class="btn-group">
                                     <button type="button" class="btn btn-primary" data-trix-method="rotate" data-option="-90" title="<?= AvatarWidget::t('message', 'Rotate -90 degrees') ?>"><?= AvatarWidget::t('message', 'Rotate Left') ?></button>
@@ -118,9 +115,8 @@ use yongtiger\cropperavatar\AvatarWidget;
                             <!--///[http://www.brainbook.cc]-->
 
                         </div>
-                            <div class="col-md-3">
-                                <button type="submit" class="btn btn-hyii btn-block avatar-save"><?= AvatarWidget::t('message', 'Done') ?></button>
-                            </div>
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-hyii btn-block avatar-save"><?= AvatarWidget::t('message', 'Done') ?></button>
                         </div>
                     </div>
 

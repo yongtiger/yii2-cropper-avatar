@@ -1,5 +1,10 @@
 # Development roadmap
 
+## Yii2 cropper avatar v0.7.1:fix:main.js:this.support.formData = false
+
+Features of this version:
+
+
 ## Yii2 cropper avatar v0.7.0:InputWidget
 
 Features of this version:

@@ -54,7 +54,7 @@ class CropAvatarAction extends Action
     public function run()
     {
         ///[Yii2 cropper avatar:FORMAT_JSON]
-        if (Yii::$app->request->isAjax) {
+        // if (Yii::$app->request->isAjax) {    ///[fix:main.js:this.support.formData = false]
             // Yii::$app->request->enableCsrfValidation = false;    ///?????close csrf
             Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -79,7 +79,7 @@ class CropAvatarAction extends Action
 
                 return $result;
             }
-        }
+        // }
         return $this->controller->goHome();
     }
 }
