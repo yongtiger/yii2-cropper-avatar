@@ -16,26 +16,19 @@ use Yii;
 use yii\web\AssetBundle;
 
 /**
- * Class AvatarAsset
+ * Class AvatarInputWidgetAsset
  *
- * @package yongtiger\cropperavatar
+ * @package yongtiger\AvatarInputWidgetAsset
  */
-class AvatarAsset extends AssetBundle
+class AvatarInputWidgetAsset extends AssetBundle
 {
     public $sourcePath = '@yongtiger/cropperavatar/assets';
 
-    public $css = [
-        'css/cropper.min.css',
-        'css/main.css',
-    ];
-    
     public $js = [
-        'js/cropper.min.js',
-        'js/main.js',
+        'js/ajaxfileupload.js', ///[InputWidget]///[ajaxfileupload]
     ];
     
     public $depends = [
-        'yii\web\YiiAsset',
-        'yii\bootstrap\BootstrapAsset',
+        'yongtiger\cropperavatar\AvatarAsset',
     ];
 }

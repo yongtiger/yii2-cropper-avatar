@@ -1,5 +1,15 @@
 # Development roadmap
 
+## Yii2 cropper avatar v0.8.0:pre-release
+
+Features of this version:
+
+
+## Yii2 cropper avatar v0.7.2:InputWidget:ajaxfileupload
+
+Features of this version:
+
+
 ## Yii2 cropper avatar v0.7.1:fix:main.js:this.support.formData = false
 
 Features of this version:

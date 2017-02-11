@@ -19,6 +19,7 @@
     var isInputWidget; ///[InputWidget]
 
     function CropAvatar($element) {
+        ///Fetching parameters from view
         isModal = $element.hasClass('is-modal'); ///[isModal]
         isInputWidget = $element.hasClass('is-input-widget');   ///[InputWidget]
 
@@ -134,8 +135,8 @@
         },
 
         click: function () {
-            ///??????????fix:裁剪完图片关闭裁剪窗口后，再次点击打开，选择文件后选中的图片不出现在裁剪窗口！
-            ///原因是avatar-input已经被修改为了ajaxFileUpload临时复制的avatar-input对象，需要再次绑定嫦娥事件
+            ///fix:Crop off the picture Close the crop window, click again to open, select the file after the selected image does not appear in the crop window!
+            ///Because `avatar-input` has been modified to ajaxFileUpload temporary copy of the `avatar-input` object, need to re-bind the change event
             this.$avatarInput = this.$avatarUpload.find('.avatar-input');
             this.$avatarInput.on('change', $.proxy(this.change, this));
             ///[http://www.brainbook.cc]
@@ -266,6 +267,7 @@
                 ///@see http://stackoverflow.com/questions/5392344/sending-multipart-formdata-with-jquery-ajax
                 processData: false,
                 contentType: false,
+                ///[http://www.brainbook.cc]
 
                 beforeSend: function () {
                     _this.submitStart();
@@ -288,7 +290,7 @@
         ///[ajaxfileupload]
         ajaxFileUpload: function () {
             var url = this.$avatarForm.attr('action');
-            var csrfToken = $('meta[name="csrf-token"]').attr("content");   ///[csrf]
+            var csrfToken = $('meta[name="csrf-token"]').attr("content");   ///[csrf]@see http://stackoverflow.com/questions/32147040/csrf-issue-when-using-ajax-submit-via-link-in-yii2/32339079
             var data = {'UploadForm[avatarSrc]':this.$avatarSrc.val(), 'UploadForm[avatarData]':this.$avatarData.val(),  '_csrf-frontend' : csrfToken};
             var _this = this;
 
@@ -299,11 +301,13 @@
                 data: data,
                 dataType: 'json',
 
-                global: false,  ///@see http://www.lai18.com/content/9621987.html
+                // global: false,  ///[bug:confict with yii.js(350)]@see http://www.lai18.com/content/9621987.html
 
+                ///[fix:beforeSend]@see http://www.developwebapp.com/5538869/
                 beforeSend: function () {
                     _this.submitStart();
                 },
+                ///[http://www.brainbook.cc]
 
                 success: function (data, status) {
                     _this.submitDone(data);
@@ -350,6 +354,13 @@
             } else {
                 this.alert('Failed to response');
             }
+
+            ///fix:Crop off the picture Close the crop window, click again to open, select the file after the selected image does not appear in the crop window!
+            ///Because `avatar-input` has been modified to ajaxFileUpload temporary copy of the `avatar-input` object, need to re-bind the change event
+            this.$avatarInput = this.$avatarUpload.find('.avatar-input');
+            this.$avatarInput.on('change', $.proxy(this.change, this));
+            ///[http://www.brainbook.cc]
+
         },
 
         submitFail: function (msg) {
@@ -361,13 +372,14 @@
         },
 
         cropDone: function () {
-            // this.$avatarForm.get(0).reset();    ///?????改为Profile upddate form
-            // $("#w0").reset();
+            !isInputWidget && this.$avatarForm.get(0).reset();
 
-            $("#profile-avatar").val(this.url);   ///???????profile-avatar变量化！！！/1_user/frontend/web/uploads/avatar/123/20170210020855.png只取文件名！
+            var fn = this.url.substring(this.url.lastIndexOf('/')+1);   ///[InputWidget]only return the filename of url
+            $("#input-widget-avatar-field input").val(fn);   ///[InputWidget]input-widget-avatar-field
             this.$avatar.attr('src', this.url);
             this.stopCropper();
             isModal && this.$avatarModal.modal('hide'); ///[isModal]
+            !isModal && this.initPreview();
         },
 
         alert: function (msg) {

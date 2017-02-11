@@ -22,7 +22,7 @@ use yii\helpers\Url;
 use yongtiger\cropperavatar\AvatarWidget;
 
 ?>
-<!--///[isModal]--><!--///[InputWidget]-->
+<!--///[isModal]--><!--///[InputWidget]--><!--///Passing parameters to main.js-->
 <div class="container <?= $isInputWidget ? 'is-input-widget' : '' ?> <?= $this->context->isModal ? 'is-modal' : '' ?>" id="crop-avatar">
 
     <!-- Current avatar -->
@@ -49,7 +49,7 @@ use yongtiger\cropperavatar\AvatarWidget;
 <!--///[InputWidget]-->
 <?php if ($isInputWidget): ?>
                 <!-- <div class="avatar-form"> -->
-                <?= Html::beginTag('div', ['class' => 'avatar-form', 'action' => Url::to(['crop-avatar'])]); ?>
+                <?= Html::beginTag('div', ['class' => 'avatar-form', 'action' => Url::to(['crop-avatar', 'isInputWidget' => $isInputWidget])]); ?><!--///[isInputWidget]tell action's successCallback not to save the avatar operation-->
 <?php else: ?>
                 <?php $form = yii\bootstrap\ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data', 'class'=>'avatar-form'],'action'=>['crop-avatar']]) ?>
 <?php endif; ?>
@@ -72,7 +72,7 @@ use yongtiger\cropperavatar\AvatarWidget;
 
 <!--///[InputWidget]-->
 <?php if ($isInputWidget): ?>
-                                <?= Html::csrfMetaTags() ?><!--///[csrf]-->
+                                <?= Html::csrfMetaTags() ?><!--///[csrf]@see http://stackoverflow.com/questions/32147040/csrf-issue-when-using-ajax-submit-via-link-in-yii2/32339079-->
                                 <?= Html::hiddenInput('UploadForm[avatar_src]', $value = null, ['class'=>'avatar-src']); ?>
                                 <?= Html::hiddenInput('UploadForm[avatar_data]', $value = null, ['class'=>'avatar-data']); ?>
                                 <?= Html::fileInput('UploadForm[imageFile]', $value = null, ['class'=>'avatar-input', 'id'=>'avatarInput']); ?>
@@ -161,9 +161,9 @@ use yongtiger\cropperavatar\AvatarWidget;
     <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
 </div>
 
-<!--///[InputWidget]-->
+<!--///[InputWidget]input-widget-avatar-field-->
 <?php if ($isInputWidget): ?>
-<div class="form-group" title="<?= AvatarWidget::t('message', 'Change the avatar') ?>">
+<div id="input-widget-avatar-field" class="form-group" title="<?= AvatarWidget::t('message', 'Change the avatar') ?>">
     <?= $this->context->field->textInput() ?>
 </div>
 <?php endif; ?>

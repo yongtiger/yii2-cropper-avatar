@@ -84,7 +84,7 @@ class AvatarWidget extends InputWidget
         $this->registerTranslations();
 
         $bundle = $this->registerClientScript();
-        $this->noImageUrl = $this->noImageUrl ? : $bundle->baseUrl . '/images/avatar.png';
+        $this->noImageUrl = $this->noImageUrl ? : $bundle->baseUrl . '/images/no-avatar.png';
     }
 
     /**
@@ -93,7 +93,13 @@ class AvatarWidget extends InputWidget
     public function run()
     {
         ///[InputWidget]
-        return $this->render('index', ['model' => $this->hasModel() ? $this->model : new UploadForm(), 'isInputWidget' => $this->hasModel()]);
+        if ($this->hasModel()) {
+            $avatarInputId = Html::getInputId($this->model, $this->attribute);
+            return $this->render('index', ['model' => $this->model, 'avatarInputId' => $avatarInputId, 'isInputWidget' => true]);
+        } else {
+            return $this->render('index', ['model' => new UploadForm(), 'isInputWidget' => false]);
+        }
+        
     }
 
     /**
@@ -103,7 +109,8 @@ class AvatarWidget extends InputWidget
      */
     public function registerClientScript()
     {
-        return AvatarAsset::register($this->view);
+        ///[InputWidget]
+        return $this->hasModel() ? AvatarInputWidgetAsset::register($this->view) : AvatarAsset::register($this->view);
     }
 
     /**

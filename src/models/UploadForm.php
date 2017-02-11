@@ -17,6 +17,7 @@ use yii\base\Model;
 use yii\base\Exception;
 use yii\helpers\ArrayHelper;
 use yongtiger\cropperavatar\CropAvatar;
+use yongtiger\cropperavatar\AvatarWidget;
 
 /**
  * Class UploadForm
@@ -76,6 +77,7 @@ class UploadForm extends Model
                 'smallImageHeight' => 50,
 
                 // Avatar upload path
+                ///Note: Usually disable guset from uploading avatar!
                 'dstImageFilepath' => Yii::$app->user->isGuest ? '/uploads/avatar/0' : '/uploads/avatar/' . Yii::$app->user->identity->id,
 
                 // Avatar upload file name
@@ -99,8 +101,20 @@ class UploadForm extends Model
     public function rules()
     {
         return [
-            // [['avatarData', 'imageFile'], 'required'],///?????'avatarSrc'
+            [['imageFile'], 'required'],
             [['imageFile'], 'image', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, gif'],
+        ];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'avatarSrc' => AvatarWidget::t('message', 'Avatar Src'),
+            'avatarData' => AvatarWidget::t('message', 'Avatar Data'),
+            'imageFile' => AvatarWidget::t('message', 'Image File'),
         ];
     }
 

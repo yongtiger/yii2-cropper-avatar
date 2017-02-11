@@ -32,14 +32,37 @@ class CropAvatarAction extends Action
     public $config = [];
 
     /**
-     * @var callable PHP callback, which should be triggered in case of successful avatar upload.
-     * 
-     * For example:
+     * @var callable PHP callback, which should be triggered in case of successful avatar upload, usually to save the avatar operation.
+     *
+     * Example of `successCallback`:
      *
      * ```php
-     * public function onSuccessCallback($avatarUrl)
+     * public function actions()
      * {
-     *     // saving avatar url comes here
+     *     return [
+     * 
+     *         'crop-avatar'=>[
+     *             'class' => 'yongtiger\cropperavatar\actions\CropAvatarAction',
+     *             'successCallback' => [$this, 'saveAvatar'],
+     *             // or
+     *             'successCallback' => function ($avatarSrc, $isInputWidget) {
+     *                 // save $avatarSrc into user table ...
+     *                 return;
+     *             },
+     *             // ...
+     *         ],
+     *     ],
+     * }
+     *
+     * CropAvatarAction successCallback.
+     *
+     * @param string $avatarSrc
+     * @param string $isInputWidget If set, means that `isInputWidget`, usually not to save the avatar operation
+     *
+     * public function saveAvatar($avatarSrc, $isInputWidget)  ///[isInputWidget]tell action's successCallback not to save the avatar operation.
+     * {
+     *     // save $avatarSrc into user table ...
+     *     return;
      * }
      * ```
      *
@@ -54,7 +77,7 @@ class CropAvatarAction extends Action
     public function run()
     {
         ///[Yii2 cropper avatar:FORMAT_JSON]
-        // if (Yii::$app->request->isAjax) {    ///[fix:main.js:this.support.formData = false]
+        // if (Yii::$app->request->isAjax) {    ///[fix:main.js:this.support.formData = false]Must close ajax, because when `this.support.formData` is false for some reason, directly use the form submit, rather than ajax
             // Yii::$app->request->enableCsrfValidation = false;    ///[csrf] no need to close csrf
             Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -70,11 +93,13 @@ class CropAvatarAction extends Action
                 $result = $model->upload();
 
                 ///[Yii2 cropper avatar:successCallback]
-                if ($this->successCallback) {   ///[ajaxfileupload]///?????????
+                ///Usually to save the avatar operation
+                if ($this->successCallback) {
                     if (!is_callable($this->successCallback)) {
                         throw new InvalidConfigException('"' . get_class($this) . '::successCallback" should be a valid callback.');
                     }
-                    call_user_func($this->successCallback, $result['result']);
+                    ///[isInputWidget]tell action's successCallback not to save the avatar operation
+                    call_user_func($this->successCallback, $result['result'], Yii::$app->request->get('isInputWidget'));
                 }
 
                 return $result;

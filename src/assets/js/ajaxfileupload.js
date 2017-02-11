@@ -1,3 +1,52 @@
+/**
+ * js-ajaxfileupload
+ *
+ * @link        http://www.brainbook.cc
+ * @see         https://github.com/yongtiger/js-ajaxfileupload
+ * @author      Tiger Yong <tigeryang.brainbook@outlook.com>
+ * @copyright   Copyright (c) 2016 BrainBook.CC
+ * @license     http://opensource.org/licenses/MIT
+ *
+ * Reference: https://github.com/carlcarl/AjaxFileUpload
+ *
+ * Features: 
+ * - add `handleError`
+ * - add `start` and `beforeSend` local callbacks of events
+ * - fix ie9 and ie 10
+ * - fix bugs: confict with yii.js(350)
+ *
+ * Example:
+ *
+ * ```js
+ * ajaxFileUpload: function () {
+ *     $.ajaxFileUpload({url: '<your url>', 
+ *         secureuri: false,
+ *         fileElementId:'<your file element id',
+ *         type: 'post',
+ *         data: '<your data>',
+ *         dataType: 'json',
+ * 
+ *         beforeSend: function () {
+ *             // ...
+ *         },
+ * 
+ *         success: function (data, status) {
+ *             // ...
+ *         },
+ * 
+ *         error: function (XMLHttpRequest, textStatus, errorThrown) {
+ *             // ...
+ *         },
+ * 
+ *         complete: function () {
+ *             // ...
+ *         }
+ *     });
+ * },
+ * ```
+ *
+ */
+
 jQuery.extend({
 
     ///@see http://www.cnblogs.com/zrp2013/archive/2013/05/29/3106435.html
@@ -34,14 +83,21 @@ jQuery.extend({
         var frameId = 'jUploadFrame' + id;
 
         if(window.ActiveXObject) {
-            var io = document.createElement('<iframe id="' + frameId + '" name="' + frameId + '" />');
-            if(typeof uri== 'boolean'){
-                io.src = 'javascript:false';
-            }
-            else if(typeof uri== 'string'){
-                io.src = uri;
-            }
-        }
+            ///fix ie9 and ie 10 @see http://www.oschina.net/question/1246890_142999
+            if(jQuery.browser.version=="9.0" || jQuery.browser.version=="10.0"){  
+                var io = document.createElement('iframe');  
+                io.id = frameId;  
+                io.name = frameId;  
+            }else if(jQuery.browser.version=="6.0" || jQuery.browser.version=="7.0" || jQuery.browser.version=="8.0"){  
+                 var io = document.createElement('<iframe id="' + frameId + '" name="' + frameId + '" />');  
+                 if(typeof uri== 'boolean'){  
+                     io.src = 'javascript:false';  
+                 }  
+                 else if(typeof uri== 'string'){  
+                     io.src = uri;  
+                 }  
+            }  
+        }  
         else {
             var io = document.createElement('iframe');
             io.id = frameId;
@@ -96,16 +152,33 @@ jQuery.extend({
         var io = jQuery.createUploadIframe(id, s.secureuri);
         var frameId = 'jUploadFrame' + id;
         var formId = 'jUploadForm' + id;
+
         // Watch for a new set of requests
-        if ( s.global && ! jQuery.active++ )
-        {
-            jQuery.event.trigger( "ajaxStart" );
+        if ( !jQuery.active++ ) {
+
+            ///[fix:beforeSend]@see http://www.developwebapp.com/5538869/
+            ///If a local callback was specified, fire it and pass it the data
+            if ( s.start )
+                s.start( s );
+
+            if (s.global) {
+                jQuery.event.trigger( "ajaxStart" );
+            }
         }
+
         var requestDone = false;
+
         // Create the request object
-        var xml = {}
+        var xml = {};
+
+        ///[fix:beforeSend]@see http://www.developwebapp.com/5538869/
+        ///If a local callback was specified, fire it and pass it the data
+        if ( s.beforeSend )
+            s.beforeSend( s );
+
         if ( s.global )
             jQuery.event.trigger("ajaxSend", [xml, s]);
+
         // Wait for a response to come back
         var uploadCallback = function(isTimeout)
         {
@@ -153,8 +226,11 @@ jQuery.extend({
                 }
 
                 // The request was completed
-                if( s.global )
-                    jQuery.event.trigger( "ajaxComplete", [xml, s] );
+                if( s.global ) {
+                    ///[bug:confict with yii.js(350)]@see http://www.lai18.com/content/9621987.html
+                    var xhr = new XMLHttpRequest();
+                    jQuery.event.trigger( "ajaxComplete", [xhr, s, xml] );
+                }
 
                 // Handle the global AJAX counter
                 if ( s.global && ! --jQuery.active )

@@ -21,6 +21,14 @@
 return [
 
 	/**
+	 * Models
+	 */
+	///\vendor\yongtiger\yii2-cropper-avatar\src\models\UploadForm.php
+	'Avatar Src' => '头像文件',
+	'Avatar Data' => '头像数据',
+	'Image File' => '图片文件',
+
+	/**
 	 * Views
 	 */
 	///\vendor\yongtiger\yii2-cropper-avatar\src\views\index.php
