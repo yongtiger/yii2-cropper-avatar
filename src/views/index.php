@@ -21,9 +21,19 @@ use yii\bootstrap\Html;
 use yii\helpers\Url;
 use yongtiger\cropperavatar\AvatarWidget;
 
+///[rounded avatar:image base64]
+$isRounded && $this->registerCss(<<<CSS
+    /* ///?????Override Cropper's styles */
+    .cropper-view-box,.avatar-preview,
+    .cropper-face {
+        border-radius: 50%;
+    }
+CSS
+);
+
 ?>
-<!--///[isModal]--><!--///[InputWidget]--><!--///Passing parameters to main.js-->
-<div class="container <?= $isInputWidget ? 'is-input-widget' : '' ?> <?= $this->context->isModal ? 'is-modal' : '' ?>" id="crop-avatar">
+<!--///[isModal]///[InputWidget]///[rounded avatar:image base64]--><!--///Passing parameters to main.js-->
+<div class="container <?= $isRounded ? 'is-rounded' : '' ?> <?= $isInputWidget ? 'is-input-widget' : '' ?> <?= $this->context->isModal ? 'is-modal' : '' ?>" id="crop-avatar">
 
     <!-- Current avatar -->
     <div class="avatar-view" title="<?= AvatarWidget::t('message', 'Change the avatar') ?>">

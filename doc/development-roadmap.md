@@ -1,5 +1,10 @@
 # Development roadmap
 
+## Yii2 cropper avatar v0.9.0:rounded avatar:image base64
+
+Features of this version:
+
+
 ## Yii2 cropper avatar v0.8.0:pre-release
 
 Features of this version:

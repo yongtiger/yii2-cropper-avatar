@@ -36,6 +36,12 @@ class AvatarWidget extends InputWidget
      */
     public $noImageUrl;
 
+    ///[rounded avatar:image base64]
+    /**
+     * @var bool Whether crop a rounded avatar
+     */
+    public $isRounded = false;
+
     ///[isModal]
     /**
      * @var bool Whether show avatar cropper by modal mode
@@ -92,12 +98,12 @@ class AvatarWidget extends InputWidget
      */
     public function run()
     {
-        ///[InputWidget]
+        ///[InputWidget]///[rounded avatar:image base64]
         if ($this->hasModel()) {
             $avatarInputId = Html::getInputId($this->model, $this->attribute);
-            return $this->render('index', ['model' => $this->model, 'avatarInputId' => $avatarInputId, 'isInputWidget' => true]);
+            return $this->render('index', ['model' => $this->model, 'avatarInputId' => $avatarInputId, 'isInputWidget' => true, 'isRounded' => $this->isRounded]);
         } else {
-            return $this->render('index', ['model' => new UploadForm(), 'isInputWidget' => false]);
+            return $this->render('index', ['model' => new UploadForm(), 'isInputWidget' => false, 'isRounded' => $this->isRounded]);
         }
         
     }

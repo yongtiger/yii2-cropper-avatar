@@ -1,7 +1,7 @@
-<?php ///[Yii2 cropper avatar]
+<?php ///[Crop Avatar]
 
 /**
- * Yii2 cropper avatar
+ * Crop Avatar
  *
  * @link        http://www.brainbook.cc
  * @see         https://github.com/yongtiger/yii2-cropper-avatar
@@ -20,25 +20,32 @@ use Yii;
  * @package yongtiger\cropperavatar
  */
 class CropAvatar {
-    private $config;    ///[Yii2 cropper avatar]
+    private $config;    ///[Crop Avatar]
 
     private $src;
     private $data;
-    private $dstUrl;    ///[Yii2 cropper avatar]
-    private $dstPath;   ///[Yii2 cropper avatar]
+    private $dstUrl;    ///[Crop Avatar]
+    private $dstPath;   ///[Crop Avatar]
     private $type;
     private $extension;
     private $msg;
 
-    ///[Yii2 cropper avatar]
+    ///[Crop Avatar]
     function __construct($src, $data, $file, $config) {
         $this->config = $config;
         $this->dstPath = Yii::getAlias('@webroot') . $this->config['dstImageFilepath'] . DIRECTORY_SEPARATOR . $this->config['dstImageFilename'];
         $this->dstUrl = Yii::getAlias('@web') . $this->config['dstImageFilepath'] . '/' . $this->config['dstImageFilename'];
 
-        $this -> setSrc($src);
-        $this -> setData($data);
-        $file && $this -> setFile($file, $config['original']);
+        $this ->setData($data);
+
+        ///[rounded avatar:image base64]
+        if ($this->isImageBase64($src)) {
+            $this->setSrc($src);
+            $this->data->x = $this->data->y = $this->data->rotate = 0;    ///already cropped by `main.js`
+        } else {
+            $file && $this->setFile($file, $config['original']);
+        }
+        ///[http://www.brainbook.cc]
 
         $this -> crop($this -> src, $this -> dstPath . $this -> extension, $this -> data);
     }
@@ -72,7 +79,7 @@ class CropAvatar {
                 if ($original) {
                     $extension = image_type_to_extension($type);
 
-                    $src = $this -> dstPath . '_' . $original . $extension; ///[Yii2 cropper avatar]
+                    $src = $this -> dstPath . '_' . $original . $extension; ///[Crop Avatar]
 
                     if ($type == IMAGETYPE_GIF || $type == IMAGETYPE_JPEG || $type == IMAGETYPE_PNG) {
 
@@ -251,5 +258,13 @@ class CropAvatar {
 
     public function getMsg() {
         return $this -> msg;
+    }
+
+    ///[Image Base64]
+    public function isImageBase64($src) {
+        if (!empty($src) && is_string($src)) {
+            return preg_match('/^data:image\/([a-z|-])+;base64,/', $src);
+        }
+        return false;
     }
 }

@@ -17,11 +17,13 @@
 
     var isModal; ///[isModal]
     var isInputWidget; ///[InputWidget]
+    var isRounded; ///[rounded avatar:image base64]
 
     function CropAvatar($element) {
         ///Fetching parameters from view
         isModal = $element.hasClass('is-modal'); ///[isModal]
         isInputWidget = $element.hasClass('is-input-widget');   ///[InputWidget]
+        isRounded = $element.hasClass('is-rounded');   ///[rounded avatar:image base64]
 
         this.$container = $element;
 
@@ -178,6 +180,16 @@
                 return false;
             }
 
+            ///[rounded avatar:image base64]
+            if(isRounded) {
+                var croppedCanvas;
+                var roundedCanvas;
+                croppedCanvas = this.$img.cropper('getCroppedCanvas');
+                roundedCanvas = getRoundedCanvas(croppedCanvas);
+                this.$avatarSrc.val(roundedCanvas.toDataURL());
+            }
+            ///[http://www.brainbook.cc]
+
             if (this.support.formData) {
                 if (isInputWidget) {
                     this.ajaxFileUpload();  ///[InputWidget]
@@ -222,15 +234,15 @@
                     aspectRatio: 1,
                     preview: this.$avatarPreview.selector,
                     crop: function (e) {
-                    var json = [
-                        '{"x":' + e.x,
-                        '"y":' + e.y,
-                        '"height":' + e.height,
-                        '"width":' + e.width,
-                        '"rotate":' + e.rotate + '}'
-                    ].join();
+                        var json = [
+                            '{"x":' + e.x,
+                            '"y":' + e.y,
+                            '"height":' + e.height,
+                            '"width":' + e.width,
+                            '"rotate":' + e.rotate + '}'
+                        ].join();
 
-                    _this.$avatarData.val(json);
+                        _this.$avatarData.val(json);
                     }
                 });
 
@@ -376,6 +388,7 @@
 
             var fn = this.url.substring(this.url.lastIndexOf('/')+1);   ///[InputWidget]only return the filename of url
             $("#input-widget-avatar-field input").val(fn);   ///[InputWidget]input-widget-avatar-field
+
             this.$avatar.attr('src', this.url);
             this.stopCropper();
             isModal && this.$avatarModal.modal('hide'); ///[isModal]
@@ -398,3 +411,21 @@
         return new CropAvatar($('#crop-avatar'));
     });
 });
+
+function getRoundedCanvas(sourceCanvas) {
+    var canvas = document.createElement('canvas');
+    var context = canvas.getContext('2d');
+    var width = sourceCanvas.width;
+    var height = sourceCanvas.height;
+
+    canvas.width = width;
+    canvas.height = height;
+    context.beginPath();
+    context.arc(width / 2, height / 2, Math.min(width, height) / 2, 0, 2 * Math.PI);
+    context.strokeStyle = 'rgba(0,0,0,0)';
+    context.stroke();
+    context.clip();
+    context.drawImage(sourceCanvas, 0, 0, width, height);
+
+    return canvas;
+}
