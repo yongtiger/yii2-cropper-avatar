@@ -1,4 +1,4 @@
-# Yii2 cropper avatar v0.9.0 (rounded avatar:image base64)
+# Yii2 cropper avatar v0.9.1 (rounded avatar:image base64[typo])
 
 [![Latest Stable Version](https://poser.pugx.org/yongtiger/yii2-cropper-avatar/v/stable)](https://packagist.org/packages/yongtiger/yii2-cropper-avatar)
 [![Total Downloads](https://poser.pugx.org/yongtiger/yii2-cropper-avatar/downloads)](https://packagist.org/packages/yongtiger/yii2-cropper-avatar) 

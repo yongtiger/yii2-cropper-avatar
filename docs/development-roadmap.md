@@ -1,5 +1,10 @@
 # Development roadmap
 
+## v0.9.1 (rounded avatar:image base64[typo])
+
+Features of this version:
+
+
 ## v0.9.0 (rounded avatar:image base64)
 
 Features of this version:
