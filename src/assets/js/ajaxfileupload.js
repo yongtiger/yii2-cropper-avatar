@@ -21,11 +21,15 @@
  * ajaxFileUpload: function () {
  *     $.ajaxFileUpload({url: '<your url>', 
  *         secureuri: false,
- *         fileElementId:'<your file element id',
+ *         fileElementId:'<your file element id>',
  *         type: 'post',
  *         data: '<your data>',
  *         dataType: 'json',
  * 
+ *         start: function () {
+ *             // ...
+ *         },
+ *
  *         beforeSend: function () {
  *             // ...
  *         },
