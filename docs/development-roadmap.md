@@ -1,5 +1,8 @@
 # Development roadmap
 
+## v0.10.0 (FIX# i18n:long text translation)
+
+
 ## v0.9.1 (rounded avatar:image base64[typo])
 
 Features of this version:
