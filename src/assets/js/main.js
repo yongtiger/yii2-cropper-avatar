@@ -44,6 +44,11 @@
         this.$avatarPreview = this.$avatarModal.find('.avatar-preview');
 
         this.init();
+
+        ///[v0.10.4 (FIX# main.s:automatically start cropper when init or submitEnd)]
+        this.url = this.$avatar.attr('src');
+        this.$avatarSrc.val(getAbsoluteUrl(this.url));
+        this.startCropper();
     }
 
     CropAvatar.prototype = {
@@ -381,6 +386,12 @@
 
         submitEnd: function () {
             this.$loading.fadeOut();
+
+            ///[v0.10.4 (FIX# main.s:automatically start cropper when init or submitEnd)]
+            this.url = this.$avatar.attr('src');
+            this.$avatarSrc.val(getAbsoluteUrl(this.url));
+            this.startCropper();
+
         },
 
         cropDone: function () {
@@ -429,3 +440,15 @@ function getRoundedCanvas(sourceCanvas) {
 
     return canvas;
 }
+
+///[v0.10.4 (FIX# main.s:automatically start cropper when init or submitEnd)]
+///@see http://code.askmein.com/get-absolute-url-using-javascript/
+///@see https://davidwalsh.name/get-absolute-url
+var getAbsoluteUrl = (function() {
+    var a;
+    return function(url) {
+        if(!a) a = document.createElement('a');
+        a.href = url;
+        return a.href;
+    };
+})();

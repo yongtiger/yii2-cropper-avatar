@@ -35,27 +35,6 @@ CSS
 <!--///[isModal]///[InputWidget]///[rounded avatar:image base64]--><!--///Passing parameters to main.js-->
 <div class="<?= $isRounded ? 'is-rounded' : '' ?> <?= $isInputWidget ? 'is-input-widget' : '' ?> <?= $this->context->isModal ? 'is-modal' : '' ?>" id="crop-avatar">
 
-    <!-- Current avatar -->
-    <div class="avatar-view" title="<?= AvatarWidget::t('message', 'Change the avatar') ?>">
-
-        <!--///[InputWidget]-->
-        <!--///[v0.10.2 (ADD# dstImageUri, CHG# dstImageFilepath)]-->
-        <img
-            src="<?=
-                $this->context->value ? 
-                    ((strpos($this->context->value, 'http://') === 0 || strpos($this->context->value, 'https://') === 0) ? 
-                        $this->context->value 
-                    : 
-                        $this->context->dstImageUri . '/' . $this->context->value) 
-                :
-                    $this->context->noImageUrl
-            ?>"
-            alt="<?= AvatarWidget::t('message', 'Avatar') ?>"
-        />
-
-    </div>
-<!--///[http://www.brainbook.cc]-->
-
 <!--///[isModal]-->
 <?php if ($this->context->isModal): ?>
     <!-- Cropping modal -->
@@ -179,6 +158,26 @@ CSS
 <?php endif; ?>
 <!--///[http://www.brainbook.cc]-->
 
+    <!-- Current avatar -->
+    <div class="avatar-view" title="<?= AvatarWidget::t('message', 'Change the avatar') ?>">
+
+        <!--///[InputWidget]-->
+        <!--///[v0.10.2 (ADD# dstImageUri, CHG# dstImageFilepath)]-->
+        <img
+            src="<?=
+                $this->context->value ? 
+                    ((strpos($this->context->value, 'http://') === 0 || strpos($this->context->value, 'https://') === 0) ? 
+                        $this->context->value 
+                    : 
+                        $this->context->dstImageUri . '/' . $this->context->value) 
+                :
+                    $this->context->noImageUrl
+            ?>"
+            alt="<?= AvatarWidget::t('message', 'Avatar') ?>"
+        />
+
+    </div>
+    
     <!-- Loading state -->
     <div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
 </div>
