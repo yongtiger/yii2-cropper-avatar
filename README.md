@@ -1,4 +1,4 @@
-# Yii2 cropper avatar v0.10.0 (FIX# i18n:long text translation)
+# Yii2 cropper avatar v0.10.1 (FIX# views\index.php:div container)
 
 [![Latest Stable Version](https://poser.pugx.org/yongtiger/yii2-cropper-avatar/v/stable)](https://packagist.org/packages/yongtiger/yii2-cropper-avatar)
 [![Total Downloads](https://poser.pugx.org/yongtiger/yii2-cropper-avatar/downloads)](https://packagist.org/packages/yongtiger/yii2-cropper-avatar) 

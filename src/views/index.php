@@ -33,7 +33,7 @@ CSS
 
 ?>
 <!--///[isModal]///[InputWidget]///[rounded avatar:image base64]--><!--///Passing parameters to main.js-->
-<div class="container <?= $isRounded ? 'is-rounded' : '' ?> <?= $isInputWidget ? 'is-input-widget' : '' ?> <?= $this->context->isModal ? 'is-modal' : '' ?>" id="crop-avatar">
+<div class="<?= $isRounded ? 'is-rounded' : '' ?> <?= $isInputWidget ? 'is-input-widget' : '' ?> <?= $this->context->isModal ? 'is-modal' : '' ?>" id="crop-avatar">
 
     <!-- Current avatar -->
     <div class="avatar-view" title="<?= AvatarWidget::t('message', 'Change the avatar') ?>">
@@ -135,10 +135,10 @@ CSS
                                     <button type="button" class="btn btn-primary" data-trix-method="rotate" data-option="-45">-45<?= AvatarWidget::t('message', 'deg') ?></button>
                                 </div>
                                 <div class="btn-group">
-                                        <button type="button" class="btn btn-primary" data-trix-method="rotate" data-option="90" title="<?= AvatarWidget::t('message', 'Rotate 90 degrees') ?>"><?= AvatarWidget::t('message', 'Rotate Right') ?></button>
-                                        <button type="button" class="btn btn-primary" data-trix-method="rotate" data-option="15">15<?= AvatarWidget::t('message', 'deg') ?></button>
-                                        <button type="button" class="btn btn-primary" data-trix-method="rotate" data-option="30">30<?= AvatarWidget::t('message', 'deg') ?></button>
-                                        <button type="button" class="btn btn-primary" data-trix-method="rotate" data-option="45">45<?= AvatarWidget::t('message', 'deg') ?></button>
+                                    <button type="button" class="btn btn-primary" data-trix-method="rotate" data-option="90" title="<?= AvatarWidget::t('message', 'Rotate 90 degrees') ?>"><?= AvatarWidget::t('message', 'Rotate Right') ?></button>
+                                    <button type="button" class="btn btn-primary" data-trix-method="rotate" data-option="15">15<?= AvatarWidget::t('message', 'deg') ?></button>
+                                    <button type="button" class="btn btn-primary" data-trix-method="rotate" data-option="30">30<?= AvatarWidget::t('message', 'deg') ?></button>
+                                    <button type="button" class="btn btn-primary" data-trix-method="rotate" data-option="45">45<?= AvatarWidget::t('message', 'deg') ?></button>
                                 </div>
 <?php endif; ?>
 <!--///[http://www.brainbook.cc]-->
