@@ -1,4 +1,4 @@
-# Yii2 cropper avatar v0.10.1 (FIX# views\index.php:div container)
+# Yii2 cropper avatar v0.10.2 (ADD# dstImageUri, CHG# dstImageFilepath)
 
 [![Latest Stable Version](https://poser.pugx.org/yongtiger/yii2-cropper-avatar/v/stable)](https://packagist.org/packages/yongtiger/yii2-cropper-avatar)
 [![Total Downloads](https://poser.pugx.org/yongtiger/yii2-cropper-avatar/downloads)](https://packagist.org/packages/yongtiger/yii2-cropper-avatar) 

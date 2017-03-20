@@ -76,10 +76,15 @@ class UploadForm extends Model
                 // Default height of the small image, empty means no generating 
                 'smallImageHeight' => 50,
 
+                ///[v0.10.2 (ADD# dstImageUri, CHG# dstImageFilepath)]
                 // Avatar upload path
                 ///Note: Usually disable guset from uploading avatar!
-                'dstImageFilepath' => Yii::$app->user->isGuest ? '/uploads/avatar/0' : '/uploads/avatar/' . Yii::$app->user->identity->id,
+                'dstImageFilepath' => Yii::$app->user->isGuest ? '@webroot/uploads/avatar/0' : '@webroot/uploads/avatar/' . Yii::$app->user->identity->id,
 
+                // Avatar uri
+                'dstImageUri' => Yii::$app->user->isGuest ? '@web/uploads/avatar/0' : '@web/uploads/avatar/' . Yii::$app->user->identity->id,
+                ///[http://www.brainbook.cc]
+                
                 // Avatar upload file name
                 'dstImageFilename' => date('YmdHis'),
 
@@ -88,8 +93,10 @@ class UploadForm extends Model
                 
             ], $this->config);
 
-            $dir = Yii::getAlias('@webroot') . $this->config['dstImageFilepath'];
-            if (!is_dir($dir) && !mkdir($dir, 0777, true)) {
+            ///[v0.10.2 (ADD# dstImageUri, CHG# dstImageFilepath)]
+            $this->config['dstImageUri'] = Yii::getAlias($this->config['dstImageUri']);
+            $this->config['dstImageFilepath'] = Yii::getAlias($this->config['dstImageFilepath']);
+            if (!is_dir($this->config['dstImageFilepath']) && !mkdir($this->config['dstImageFilepath'], 0777, true)) {
                 throw new Exception('Fails to make upload directory!');
             }
         }

@@ -1,5 +1,8 @@
 # Development roadmap
 
+## v0.10.2 (ADD# dstImageUri, CHG# dstImageFilepath)
+
+
 ## v0.10.1 (FIX# views\index.php:div container)
 
 

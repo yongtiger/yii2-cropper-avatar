@@ -12,8 +12,6 @@
 
 namespace yongtiger\cropperavatar;
 
-use Yii;
-
 /**
  * Class CropAvatar
  *
@@ -33,8 +31,10 @@ class CropAvatar {
     ///[Crop Avatar]
     function __construct($src, $data, $file, $config) {
         $this->config = $config;
-        $this->dstPath = Yii::getAlias('@webroot') . $this->config['dstImageFilepath'] . DIRECTORY_SEPARATOR . $this->config['dstImageFilename'];
-        $this->dstUrl = Yii::getAlias('@web') . $this->config['dstImageFilepath'] . '/' . $this->config['dstImageFilename'];
+        
+        ///[v0.10.2 (ADD# dstImageUri, CHG# dstImageFilepath)]
+        $this->dstPath = $this->config['dstImageFilepath'] . DIRECTORY_SEPARATOR . $this->config['dstImageFilename'];
+        $this->dstUrl = $this->config['dstImageUri'] . '/' . $this->config['dstImageFilename'];
 
         $this ->setData($data);
 
