@@ -40,7 +40,18 @@ CSS
 
         <!--///[InputWidget]-->
         <!--///[v0.10.2 (ADD# dstImageUri, CHG# dstImageFilepath)]-->
-        <img src="<?= $this->context->value ? ((strpos($this->context->value, 'http://') === 0 || strpos($this->context->value, 'https://') === 0) ? $this->context->value : $this->context->dstImageUri . '/' . $this->context->value) : $this->context->noImageUrl ?>" alt="<?= AvatarWidget::t('message', 'Avatar') ?>">
+        <img
+            src="<?=
+                $this->context->value ? 
+                    ((strpos($this->context->value, 'http://') === 0 || strpos($this->context->value, 'https://') === 0) ? 
+                        $this->context->value 
+                    : 
+                        $this->context->dstImageUri . '/' . $this->context->value) 
+                :
+                    $this->context->noImageUrl
+            ?>"
+            alt="<?= AvatarWidget::t('message', 'Avatar') ?>"
+        />
 
     </div>
 <!--///[http://www.brainbook.cc]-->
