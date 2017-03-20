@@ -42,8 +42,10 @@ class CropAvatar {
         if ($this->isImageBase64($src)) {
             $this->setSrc($src);
             $this->data->x = $this->data->y = $this->data->rotate = 0;    ///already cropped by `main.js`
-        } else {
-            $file && $this->setFile($file, $config['original']);
+        } elseif ($file) {
+            $this->setFile($file, $config['original']);
+        } else {    ///[v0.10.3 (FIX# web image)]
+            $this->setSrc($src);
         }
         ///[http://www.brainbook.cc]
 

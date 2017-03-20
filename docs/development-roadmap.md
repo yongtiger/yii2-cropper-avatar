@@ -1,5 +1,8 @@
 # Development roadmap
 
+## v0.10.3 (FIX# web image)
+
+
 ## v0.10.2 (ADD# dstImageUri, CHG# dstImageFilepath)
 
 
