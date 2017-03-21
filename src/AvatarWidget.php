@@ -100,8 +100,6 @@ class AvatarWidget extends InputWidget
 
         parent::init();
 
-        $this->registerTranslations();
-
         $bundle = $this->registerClientScript();
         $this->noImageUrl = $this->noImageUrl ? : $bundle->baseUrl . '/images/no-avatar.png';
 
@@ -140,13 +138,13 @@ class AvatarWidget extends InputWidget
     /**
      * Registers the translation files.
      */
-    public function registerTranslations()
+    public static function registerTranslations()
     {
         ///[i18n]
         ///if no setup the component i18n, use setup in this module.
         if (!isset(Yii::$app->i18n->translations['extensions/yongtiger/yii2-cropper-avatar/*']) && !isset(Yii::$app->i18n->translations['extensions/yongtiger/yii2-cropper-avatar'])) {
             Yii::$app->i18n->translations['extensions/yongtiger/yii2-cropper-avatar/*'] = [
-                'class' => 'yii\i18n\PhpMessageSource',
+                'class' => 'yii\\i18n\\PhpMessageSource',
                 'sourceLanguage' => 'en-US',
                 'basePath' => '@vendor/yongtiger/yii2-cropper-avatar/src/messages',    ///default base path
                 'fileMap' => [
@@ -169,6 +167,8 @@ class AvatarWidget extends InputWidget
      */
     public static function t($category, $message, $params = [], $language = null)
     {
+        static::registerTranslations();
         return Yii::t('extensions/yongtiger/yii2-cropper-avatar/' . $category, $message, $params, $language);
     }
+
 }

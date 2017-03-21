@@ -1,5 +1,8 @@
 # Development roadmap
 
+## v0.10.7 (i18n)
+
+
 ## v0.10.6 (ADD# isHiddenImage)
 
 
