@@ -48,10 +48,17 @@ class AvatarWidget extends InputWidget
      */
     public $isModal = true;
 
+    ///[isHiddenImage]
+    /**
+     * @var bool Whether hide avatar image
+     */
+    public $isHiddenImage = false;
+
     /**
      * @var bool
      */
     public $enableRotateButtons = true;
+
     /**
      * @var bool
      */

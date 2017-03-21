@@ -159,7 +159,7 @@ CSS
 <!--///[http://www.brainbook.cc]-->
 
     <!-- Current avatar -->
-    <div class="avatar-view" title="<?= $this->context->isModal ? AvatarWidget::t('message', 'Change the avatar') : AvatarWidget::t('message', 'Avatar') ?>">
+    <div class="avatar-view <?= $this->context->isHiddenImage ? 'hidden' : '' ?>" title="<?= $this->context->isModal ? AvatarWidget::t('message', 'Change the avatar') : AvatarWidget::t('message', 'Avatar') ?>">
 
         <!--///[InputWidget]-->
         <!--///[v0.10.2 (ADD# dstImageUri, CHG# dstImageFilepath)]-->

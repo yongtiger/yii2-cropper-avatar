@@ -1,5 +1,8 @@
 # Development roadmap
 
+## v0.10.6 (ADD# isHiddenImage)
+
+
 ## v0.10.5 (ADD# getParams())
 
 
