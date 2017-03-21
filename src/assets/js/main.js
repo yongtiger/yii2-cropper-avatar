@@ -45,10 +45,6 @@
 
         this.init();
 
-        ///[v0.10.4 (FIX# main.s:automatically start cropper when init or submitEnd)]
-        this.url = this.$avatar.attr('src');
-        this.$avatarSrc.val(getAbsoluteUrl(this.url));
-        this.startCropper();
     }
 
     CropAvatar.prototype = {
@@ -70,7 +66,16 @@
             this.initTooltip();
             isModal && this.initModal();  ///[isModal]
             this.addListener();
-            this.initPreview();
+
+            ///[v0.10.4 (FIX# main.js:automatically start cropper when init or submitEnd)]
+            // this.initPreview();
+            this.$avatarPreview.html('<img src="' + this.$avatar.attr('src') + '">');
+            if (!isModal) {
+                this.url = this.$avatar.attr('src');
+                this.$avatarSrc.val(getAbsoluteUrl(this.url));
+                this.startCropper();
+            }
+
         },
 
         addListener: function () {
@@ -79,6 +84,10 @@
             !isInputWidget && this.$avatarForm.on('submit', $.proxy(this.submit, this));
             this.$avatarBtns.on('click', $.proxy(this.rotate, this));
             isInputWidget && this.$avatarSave.on('click', $.proxy(this.submit, this));   ///[InputWidget]
+
+            ///[v0.10.4 (FIX# main.js:automatically start cropper when init or submitEnd)]
+            isModal && this.$avatarModal.on('shown.bs.modal', $.proxy(this.initPreview, this));
+
         },
 
         initTooltip: function () {
@@ -94,9 +103,13 @@
         },
 
         initPreview: function () {
-            var url = this.$avatar.attr('src');
 
-            this.$avatarPreview.html('<img src="' + url + '">');
+            ///[v0.10.4 (FIX# main.js:automatically start cropper when init or submitEnd)]
+            this.url = this.$avatar.attr('src');
+            this.$avatarPreview.html('<img src="' + this.url + '">');
+            this.$avatarSrc.val(getAbsoluteUrl(this.url));
+            this.startCropper();
+
         },
 
         initIframe: function () {
@@ -148,8 +161,13 @@
             this.$avatarInput.on('change', $.proxy(this.change, this));
             ///[http://www.brainbook.cc]
             
-            isModal &&  this.$avatarModal.modal('show');  ///[isModal]
-            this.initPreview();
+            ///[v0.10.4 (FIX# main.js:automatically start cropper when init or submitEnd)]
+            if (isModal) {
+                this.$avatarModal.modal('show');  ///[isModal]
+            } else {
+                this.initPreview();
+            }
+
         },
 
         change: function () {
@@ -386,12 +404,6 @@
 
         submitEnd: function () {
             this.$loading.fadeOut();
-
-            ///[v0.10.4 (FIX# main.s:automatically start cropper when init or submitEnd)]
-            this.url = this.$avatar.attr('src');
-            this.$avatarSrc.val(getAbsoluteUrl(this.url));
-            this.startCropper();
-
         },
 
         cropDone: function () {
@@ -402,8 +414,14 @@
 
             this.$avatar.attr('src', this.url);
             this.stopCropper();
-            isModal && this.$avatarModal.modal('hide'); ///[isModal]
-            !isModal && this.initPreview();
+
+            ///[v0.10.4 (FIX# main.js:automatically start cropper when init or submitEnd)]
+            if (isModal) {
+                this.$avatarModal.modal('hide');  ///[isModal]
+            } else {
+                this.initPreview();
+            }
+
         },
 
         alert: function (msg) {
@@ -441,7 +459,7 @@ function getRoundedCanvas(sourceCanvas) {
     return canvas;
 }
 
-///[v0.10.4 (FIX# main.s:automatically start cropper when init or submitEnd)]
+///[v0.10.4 (FIX# main.js:automatically start cropper when init or submitEnd)]
 ///@see http://code.askmein.com/get-absolute-url-using-javascript/
 ///@see https://davidwalsh.name/get-absolute-url
 var getAbsoluteUrl = (function() {

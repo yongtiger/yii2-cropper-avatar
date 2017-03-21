@@ -1,4 +1,4 @@
-# Yii2 cropper avatar v0.10.4 (FIX# main.s:automatically start cropper when init or submitEnd)
+# Yii2 cropper avatar v0.10.4 (FIX# main.js:automatically start cropper when init or submitEnd)
 
 [![Latest Stable Version](https://poser.pugx.org/yongtiger/yii2-cropper-avatar/v/stable)](https://packagist.org/packages/yongtiger/yii2-cropper-avatar)
 [![Total Downloads](https://poser.pugx.org/yongtiger/yii2-cropper-avatar/downloads)](https://packagist.org/packages/yongtiger/yii2-cropper-avatar) 

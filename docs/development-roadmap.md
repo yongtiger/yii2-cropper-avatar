@@ -1,6 +1,6 @@
 # Development roadmap
 
-## v0.10.4 (FIX# main.s:automatically start cropper when init or submitEnd)
+## v0.10.4 (FIX# main.js:automatically start cropper when init or submitEnd)
 
 
 ## v0.10.3 (FIX# web image)
