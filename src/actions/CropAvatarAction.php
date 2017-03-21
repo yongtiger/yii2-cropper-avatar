@@ -99,7 +99,8 @@ class CropAvatarAction extends Action
                         throw new InvalidConfigException('"' . get_class($this) . '::successCallback" should be a valid callback.');
                     }
                     ///[isInputWidget]tell action's successCallback not to save the avatar operation
-                    call_user_func($this->successCallback, $result['result'], Yii::$app->request->get('isInputWidget'));
+                    ///[v0.10.5 (ADD# getParams())]
+                    call_user_func($this->successCallback, $result, Yii::$app->request->get('isInputWidget'));
                 }
 
                 return $result;

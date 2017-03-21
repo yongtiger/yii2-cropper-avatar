@@ -49,7 +49,7 @@ class CropAvatar {
         }
         ///[http://www.brainbook.cc]
 
-        $this -> crop($this -> src, $this -> dstPath . $this -> extension, $this -> data);
+        $this->crop($this->src, $this->dstPath . $this->extension, $this->data);
     }
     ///[http://www.brainbook.cc]
 
@@ -58,16 +58,16 @@ class CropAvatar {
             $type = exif_imagetype($src);
 
             if ($type) {
-                $this -> src = $src;
-                $this -> type = $type;
-                $this -> extension = image_type_to_extension($type);
+                $this->src = $src;
+                $this->type = $type;
+                $this->extension = image_type_to_extension($type);
             }
         }
     }
 
     private function setData($data) {
         if (!empty($data)) {
-            $this -> data = json_decode(stripslashes($data));
+            $this->data = json_decode(stripslashes($data));
         }
     }
 
@@ -81,7 +81,7 @@ class CropAvatar {
                 if ($original) {
                     $extension = image_type_to_extension($type);
 
-                    $src = $this -> dstPath . '_' . $original . $extension; ///[Crop Avatar]
+                    $src = $this->dstPath . '_' . $original . $extension; ///[Crop Avatar]
 
                     if ($type == IMAGETYPE_GIF || $type == IMAGETYPE_JPEG || $type == IMAGETYPE_PNG) {
 
@@ -92,28 +92,28 @@ class CropAvatar {
                         $result = move_uploaded_file($file->tempName, $src);
 
                         if ($result) {
-                            $this -> setSrc($src);
+                            $this->setSrc($src);
                         } else {
-                            $this -> msg = 'Failed to save file';
+                            $this->msg = 'Failed to save file';
                         }
                     } else {
-                        $this -> msg = 'Please upload image with the following types: JPG, PNG, GIF';
+                        $this->msg = 'Please upload image with the following types: JPG, PNG, GIF';
                     }
                 } else {
-                    $this -> setSrc($file->tempName);   ///[Yii2 cropper avatar]
+                    $this->setSrc($file->tempName);   ///[Yii2 cropper avatar]
                 }
 
             } else {
-                $this -> msg = 'Please upload image file';
+                $this->msg = 'Please upload image file';
             }
         } else {
-            $this -> msg = $this -> codeToMessage($errorCode);
+            $this->msg = $this->codeToMessage($errorCode);
         }
     }
 
     private function crop($src, $dst, $data) {
         if (!empty($src) && !empty($dst) && !empty($data)) {
-            switch ($this -> type) {
+            switch ($this->type) {
                 case IMAGETYPE_GIF:
                     $src_img = imagecreatefromgif($src);
                     break;
@@ -128,7 +128,7 @@ class CropAvatar {
                 }
 
                 if (!$src_img) {
-                    $this -> msg = "Failed to read the image file";
+                    $this->msg = "Failed to read the image file";
                 return;
             }
 
@@ -139,7 +139,7 @@ class CropAvatar {
             $src_img_w = $size_w;
             $src_img_h = $size_h;
 
-            $degrees = $data -> rotate;
+            $degrees = $data->rotate;
 
             // Rotate the source image
             if (is_numeric($degrees) && $degrees != 0) {
@@ -160,13 +160,13 @@ class CropAvatar {
                 $src_img_h -= 1;
             }
 
-            $tmp_img_w = $data -> width;
-            $tmp_img_h = $data -> height;
+            $tmp_img_w = $data->width;
+            $tmp_img_h = $data->height;
             $dst_img_w = $this->config['dstImageWidth'];    ///[Yii2 cropper avatar]
             $dst_img_h = $this->config['dstImageHeight'];   ///[Yii2 cropper avatar]
 
-            $src_x = $data -> x;
-            $src_y = $data -> y;
+            $src_x = $data->x;
+            $src_y = $data->y;
 
             if ($src_x <= -$tmp_img_w || $src_x > $src_img_w) {
             $srcrc_x = $src_w = $dst_x = $dst_w = 0;
@@ -207,28 +207,28 @@ class CropAvatar {
 
             if ($result) {
                 if (!imagepng($dst_img, $dst)) {
-                    $this -> msg = "Failed to save the cropped image file";
+                    $this->msg = "Failed to save the cropped image file";
                 }
 
                 ///[Yii2 cropper avatar]
                 if ($this->config['middleImageWidth'] && $this->config['middleImageHeight']) {
                     $middleImage = imagecreatetruecolor($this->config['middleImageWidth'], $this->config['middleImageHeight']);
                     imagecopyresampled($middleImage, $dst_img, 0, 0, 0, 0, $this->config['middleImageWidth'], $this->config['middleImageHeight'], $this->config['dstImageWidth'], $this->config['dstImageHeight']);
-                    if (!imagepng($middleImage, $this -> dstPath . '_middle' . $this->extension)) {
-                        $this -> msg = "Failed to save the middle image file";
+                    if (!imagepng($middleImage, $this->dstPath . '_middle' . $this->extension)) {
+                        $this->msg = "Failed to save the middle image file";
                     }
                 }
                 if ($this->config['smallImageWidth'] && $this->config['smallImageHeight']) {
                     $smallImage = imagecreatetruecolor($this->config['smallImageWidth'], $this->config['smallImageHeight']);
                     imagecopyresampled($smallImage, $dst_img, 0, 0, 0, 0, $this->config['smallImageWidth'], $this->config['smallImageHeight'], $this->config['dstImageWidth'], $this->config['dstImageHeight']);
-                    if (!imagepng($smallImage, $this -> dstPath . '_small' . $this->extension)) {
-                        $this -> msg = "Failed to save the small image file";
+                    if (!imagepng($smallImage, $this->dstPath . '_small' . $this->extension)) {
+                        $this->msg = "Failed to save the small image file";
                     }
                 }
                 ///[http://www.brainbook.cc]
 
             } else {
-                $this -> msg = "Failed to crop the image file";
+                $this->msg = "Failed to crop the image file";
             }
 
             imagedestroy($src_img);
@@ -255,11 +255,22 @@ class CropAvatar {
     }
 
     public function getResult() {
-        return !empty($this -> data) ? $this -> dstUrl . $this -> extension : $this -> src;
+        return !empty($this->data) ? $this->dstUrl . $this->extension : $this->src;
+    }
+
+    ///[v0.10.5 (ADD# getParams())]
+    public function getParams() {
+        return [
+            'dstImageFilepath' => $this->config['dstImageFilepath'],
+            'dstImageUri' => $this->config['dstImageUri'],
+            'dstImageFilename' => $this->config['dstImageFilename'],
+            'extension' => $this->extension,
+            'src' => $this->src,
+        ];
     }
 
     public function getMsg() {
-        return $this -> msg;
+        return $this->msg;
     }
 
     ///[Image Base64]

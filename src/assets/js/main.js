@@ -79,7 +79,7 @@
         },
 
         addListener: function () {
-            this.$avatarView.on('click', $.proxy(this.click, this));
+            isModal && this.$avatarView.on('click', $.proxy(this.click, this));
             this.$avatarInput.on('change', $.proxy(this.change, this));
             !isInputWidget && this.$avatarForm.on('submit', $.proxy(this.submit, this));
             this.$avatarBtns.on('click', $.proxy(this.rotate, this));

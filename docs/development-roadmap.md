@@ -1,5 +1,8 @@
 # Development roadmap
 
+## v0.10.5 (ADD# getParams())
+
+
 ## v0.10.4 (FIX# main.js:automatically start cropper when init or submitEnd)
 
 

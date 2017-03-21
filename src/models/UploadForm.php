@@ -108,7 +108,6 @@ class UploadForm extends Model
     public function rules()
     {
         return [
-            [['imageFile'], 'required'],
             [['imageFile'], 'image', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jpeg, gif'],
         ];
     }
@@ -138,8 +137,9 @@ class UploadForm extends Model
         // return json_encode($response);
         return [
           'state'  => 200,
-          'message' => $crop-> getMsg(),
-          'result' => $crop-> getResult()
+          'message' => $crop->getMsg(),
+          'result' => $crop->getResult(),
+          'params' => $crop->getParams()  ///[v0.10.5 (ADD# getParams())]
         ];
     }
 }
