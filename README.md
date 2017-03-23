@@ -1,4 +1,4 @@
-# Yii2 cropper avatar v0.10.7 (i18n)
+# Yii2 cropper avatar v0.11.0 (enableCrop)
 
 [![Latest Stable Version](https://poser.pugx.org/yongtiger/yii2-cropper-avatar/v/stable)](https://packagist.org/packages/yongtiger/yii2-cropper-avatar)
 [![Total Downloads](https://poser.pugx.org/yongtiger/yii2-cropper-avatar/downloads)](https://packagist.org/packages/yongtiger/yii2-cropper-avatar) 

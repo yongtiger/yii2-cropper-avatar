@@ -31,6 +31,12 @@ class AvatarWidget extends InputWidget
      */
     public $name;
 
+    ///[v0.11.0 (enableCrop)]
+    /**
+     * @var bool
+     */
+    public $enableCrop = true;
+
     /**
      * @var string
      */

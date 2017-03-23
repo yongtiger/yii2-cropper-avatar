@@ -1,5 +1,13 @@
 # Development roadmap
 
+## v0.11.0 (enableCrop)
+
+Changed file list:
+
+- `\views\index.php`
+- `\AvatarWidget.php`
+
+
 ## v0.10.7 (i18n)
 
 
