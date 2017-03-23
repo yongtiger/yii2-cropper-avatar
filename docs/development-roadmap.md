@@ -1,5 +1,8 @@
 # Development roadmap
 
+## v0.12.0 (FIX# Yii::$app->user->identity->id)
+
+
 ## v0.11.0 (enableCrop)
 
 Changed file list:

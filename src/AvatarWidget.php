@@ -110,7 +110,7 @@ class AvatarWidget extends InputWidget
         $this->noImageUrl = $this->noImageUrl ? : $bundle->baseUrl . '/images/no-avatar.png';
 
         ///[v0.10.2 (ADD# dstImageUri, CHG# dstImageFilepath)]
-        $this->dstImageUri = $this->dstImageUri ? : (Yii::$app->user->isGuest ? '@web/uploads/avatar/0' : '@web/uploads/avatar/' . Yii::$app->user->identity->id);
+        $this->dstImageUri = $this->dstImageUri ? : (Yii::$app->user->isGuest ? '@web/uploads/avatar/0' : '@web/uploads/avatar/' . Yii::$app->user->id);
         $this->dstImageUri = Yii::getAlias($this->dstImageUri);
 
     }

@@ -79,10 +79,10 @@ class UploadForm extends Model
                 ///[v0.10.2 (ADD# dstImageUri, CHG# dstImageFilepath)]
                 // Avatar upload path
                 ///Note: Usually disable guset from uploading avatar!
-                'dstImageFilepath' => Yii::$app->user->isGuest ? '@webroot/uploads/avatar/0' : '@webroot/uploads/avatar/' . Yii::$app->user->identity->id,
+                'dstImageFilepath' => Yii::$app->user->isGuest ? '@webroot/uploads/avatar/0' : '@webroot/uploads/avatar/' . Yii::$app->user->id,
 
                 // Avatar uri
-                'dstImageUri' => Yii::$app->user->isGuest ? '@web/uploads/avatar/0' : '@web/uploads/avatar/' . Yii::$app->user->identity->id,
+                'dstImageUri' => Yii::$app->user->isGuest ? '@web/uploads/avatar/0' : '@web/uploads/avatar/' . Yii::$app->user->id,
                 ///[http://www.brainbook.cc]
                 
                 // Avatar upload file name
