@@ -1,5 +1,13 @@
 # Development roadmap
 
+## v0.12.1 (FIX# dstImageFilename, dstImageFilepath, dstImageUri)
+
+Changed file list:
+
+- `\models\UploadForm.php`
+- `\AvatarWidget.php`
+
+
 ## v0.12.0 (FIX# Yii::$app->user->identity->id)
 
 

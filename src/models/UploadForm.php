@@ -76,18 +76,18 @@ class UploadForm extends Model
                 // Default height of the small image, empty means no generating 
                 'smallImageHeight' => 50,
 
-                ///[v0.10.2 (ADD# dstImageUri, CHG# dstImageFilepath)]
+                ///[v0.10.2 (ADD# dstImageUri, CHG# dstImageFilepath)]///[v0.12.1 (FIX# dstImageFilename, dstImageFilepath, dstImageUri)]
                 // Avatar upload path
                 ///Note: Usually disable guset from uploading avatar!
-                'dstImageFilepath' => Yii::$app->user->isGuest ? '@webroot/uploads/avatar/0' : '@webroot/uploads/avatar/' . Yii::$app->user->id,
+                'dstImageFilepath' => '@webroot/upload/avatar',
 
                 // Avatar uri
-                'dstImageUri' => Yii::$app->user->isGuest ? '@web/uploads/avatar/0' : '@web/uploads/avatar/' . Yii::$app->user->id,
+                'dstImageUri' => '@web/upload/avatar',
+
+                // Avatar upload file name (no file suffix!)
+                'dstImageFilename' => Yii::$app->user->id,  ///alternative `date('YmdHis')`
                 ///[http://www.brainbook.cc]
                 
-                // Avatar upload file name
-                'dstImageFilename' => date('YmdHis'),
-
                 // The file name suffix of the original image, empty means no generating
                 'original' => 'original',
                 

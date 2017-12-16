@@ -80,11 +80,11 @@ class AvatarWidget extends InputWidget
      */
     public $enablePreviewSmalllImage = true;
 
-    ///[v0.10.2 (ADD# dstImageUri, CHG# dstImageFilepath)]
+    ///[v0.10.2 (ADD# dstImageUri, CHG# dstImageFilepath)]///[v0.12.1 (FIX# dstImageFilename, dstImageFilepath, dstImageUri)]
     /**
      * @var string
      */
-    public $dstImageUri;
+    public $dstImageUri = '@web/upload/avatar';
 
     /**
      * @inheritdoc
@@ -110,7 +110,6 @@ class AvatarWidget extends InputWidget
         $this->noImageUrl = $this->noImageUrl ? : $bundle->baseUrl . '/images/no-avatar.png';
 
         ///[v0.10.2 (ADD# dstImageUri, CHG# dstImageFilepath)]
-        $this->dstImageUri = $this->dstImageUri ? : (Yii::$app->user->isGuest ? '@web/uploads/avatar/0' : '@web/uploads/avatar/' . Yii::$app->user->id);
         $this->dstImageUri = Yii::getAlias($this->dstImageUri);
 
     }
