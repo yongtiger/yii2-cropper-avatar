@@ -2,7 +2,7 @@
     "name": "yongtiger/yii2-cropper-avatar",
     "description": "",
     "type": "yii2-extension",
-    "keywords": ["yii2","extension","avatar","cropper","file","image","crop","upload"],
+    "keywords": ["yii2","extension","avatar","cropper","crop"],
     "license": "MIT",
     "support": {
         "issues": "https://github.com/yongtiger/yii2-cropper-avatar/issues",
